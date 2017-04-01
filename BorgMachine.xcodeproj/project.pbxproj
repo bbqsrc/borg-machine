@@ -1,0 +1,365 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C6024CCB1E8FBB8F0010B588 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6024CCA1E8FBB8F0010B588 /* Extensions.swift */; };
+		C6024CD21E8FBBFC0010B588 /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6024CD11E8FBBFC0010B588 /* PreferencesController.swift */; };
+		C6024CD51E8FBC450010B588 /* PreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6024CD41E8FBC450010B588 /* PreferencesView.xib */; };
+		C6024CD71E8FBF2A0010B588 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6024CD61E8FBF2A0010B588 /* PreferencesView.swift */; };
+		C6024CDA1E8FC4DF0010B588 /* BorgWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6024CD91E8FC4DF0010B588 /* BorgWrapper.swift */; };
+		C6024CE11E8FC6EC0010B588 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6024CE01E8FC6EC0010B588 /* AppPreferences.swift */; };
+		C6024CE31E8FCDB30010B588 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6024CE21E8FCDB30010B588 /* OnboardingView.xib */; };
+		C6024CE51E8FCDBE0010B588 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6024CE41E8FCDBE0010B588 /* OnboardingView.swift */; };
+		C6024CE71E8FD07C0010B588 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6024CE61E8FD07C0010B588 /* OnboardingController.swift */; };
+		C6795DC01E8FDAE000B079F9 /* borg in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6BB35BB1E8FD7C3002FFCBB /* borg */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C6B969C61E8D1D1D00897A60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B969C51E8D1D1D00897A60 /* AppDelegate.swift */; };
+		C6B969CA1E8D1D1D00897A60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6B969C91E8D1D1D00897A60 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C6024CDE1E8FC6030010B588 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				C6795DC01E8FDAE000B079F9 /* borg in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C6024CCA1E8FBB8F0010B588 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C6024CD11E8FBBFC0010B588 /* PreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
+		C6024CD41E8FBC450010B588 /* PreferencesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesView.xib; sourceTree = "<group>"; };
+		C6024CD61E8FBF2A0010B588 /* PreferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		C6024CD91E8FC4DF0010B588 /* BorgWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorgWrapper.swift; sourceTree = "<group>"; };
+		C6024CE01E8FC6EC0010B588 /* AppPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
+		C6024CE21E8FCDB30010B588 /* OnboardingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
+		C6024CE41E8FCDBE0010B588 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		C6024CE61E8FD07C0010B588 /* OnboardingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
+		C6B969C21E8D1D1D00897A60 /* BorgMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BorgMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6B969C51E8D1D1D00897A60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C6B969C91E8D1D1D00897A60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C6B969CE1E8D1D1D00897A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6BB35BB1E8FD7C3002FFCBB /* borg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = borg; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C6B969BF1E8D1D1D00897A60 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C6024CD01E8FBBD90010B588 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C6024CD11E8FBBFC0010B588 /* PreferencesController.swift */,
+				C6024CE61E8FD07C0010B588 /* OnboardingController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C6024CD31E8FBC200010B588 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C6024CD41E8FBC450010B588 /* PreferencesView.xib */,
+				C6024CD61E8FBF2A0010B588 /* PreferencesView.swift */,
+				C6024CE21E8FCDB30010B588 /* OnboardingView.xib */,
+				C6024CE41E8FCDBE0010B588 /* OnboardingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C6024CD81E8FC4C30010B588 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C6024CD91E8FC4DF0010B588 /* BorgWrapper.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C6024CDB1E8FC5290010B588 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				C6BB35BB1E8FD7C3002FFCBB /* borg */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		C6B969B91E8D1D1D00897A60 = {
+			isa = PBXGroup;
+			children = (
+				C6024CDB1E8FC5290010B588 /* Dependencies */,
+				C6B969C41E8D1D1D00897A60 /* Sources */,
+				C6B969C31E8D1D1D00897A60 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C6B969C31E8D1D1D00897A60 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C6B969C21E8D1D1D00897A60 /* BorgMachine.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6B969C41E8D1D1D00897A60 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C6024CD81E8FC4C30010B588 /* Services */,
+				C6024CD31E8FBC200010B588 /* Views */,
+				C6024CD01E8FBBD90010B588 /* Controllers */,
+				C6B969C51E8D1D1D00897A60 /* AppDelegate.swift */,
+				C6024CE01E8FC6EC0010B588 /* AppPreferences.swift */,
+				C6024CCA1E8FBB8F0010B588 /* Extensions.swift */,
+				C6B969C91E8D1D1D00897A60 /* Assets.xcassets */,
+				C6B969CE1E8D1D1D00897A60 /* Info.plist */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C6B969C11E8D1D1D00897A60 /* BorgMachine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6B969D11E8D1D1D00897A60 /* Build configuration list for PBXNativeTarget "BorgMachine" */;
+			buildPhases = (
+				C6B969BE1E8D1D1D00897A60 /* Sources */,
+				C6B969BF1E8D1D1D00897A60 /* Frameworks */,
+				C6B969C01E8D1D1D00897A60 /* Resources */,
+				C6024CDE1E8FC6030010B588 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BorgMachine;
+			productName = BorgMachine;
+			productReference = C6B969C21E8D1D1D00897A60 /* BorgMachine.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C6B969BA1E8D1D1D00897A60 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Brendan Molloy";
+				TargetAttributes = {
+					C6B969C11E8D1D1D00897A60 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = AE56HWMN8U;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = C6B969BD1E8D1D1D00897A60 /* Build configuration list for PBXProject "BorgMachine" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C6B969B91E8D1D1D00897A60;
+			productRefGroup = C6B969C31E8D1D1D00897A60 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C6B969C11E8D1D1D00897A60 /* BorgMachine */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C6B969C01E8D1D1D00897A60 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6B969CA1E8D1D1D00897A60 /* Assets.xcassets in Resources */,
+				C6024CD51E8FBC450010B588 /* PreferencesView.xib in Resources */,
+				C6024CE31E8FCDB30010B588 /* OnboardingView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C6B969BE1E8D1D1D00897A60 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6024CD71E8FBF2A0010B588 /* PreferencesView.swift in Sources */,
+				C6024CE11E8FC6EC0010B588 /* AppPreferences.swift in Sources */,
+				C6024CE51E8FCDBE0010B588 /* OnboardingView.swift in Sources */,
+				C6024CD21E8FBBFC0010B588 /* PreferencesController.swift in Sources */,
+				C6024CCB1E8FBB8F0010B588 /* Extensions.swift in Sources */,
+				C6B969C61E8D1D1D00897A60 /* AppDelegate.swift in Sources */,
+				C6024CDA1E8FC4DF0010B588 /* BorgWrapper.swift in Sources */,
+				C6024CE71E8FD07C0010B588 /* OnboardingController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C6B969CF1E8D1D1D00897A60 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C6B969D01E8D1D1D00897A60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		C6B969D21E8D1D1D00897A60 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = AE56HWMN8U;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = so.brendan.BorgMachine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		C6B969D31E8D1D1D00897A60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = AE56HWMN8U;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = so.brendan.BorgMachine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C6B969BD1E8D1D1D00897A60 /* Build configuration list for PBXProject "BorgMachine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6B969CF1E8D1D1D00897A60 /* Debug */,
+				C6B969D01E8D1D1D00897A60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6B969D11E8D1D1D00897A60 /* Build configuration list for PBXNativeTarget "BorgMachine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6B969D21E8D1D1D00897A60 /* Debug */,
+				C6B969D31E8D1D1D00897A60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C6B969BA1E8D1D1D00897A60 /* Project object */;
+}
