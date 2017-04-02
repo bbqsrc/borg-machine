@@ -9,6 +9,14 @@
 import Cocoa
 
 class PreferencesController: ViewController<PreferencesView> {
+    static func window() -> NSWindowController {
+        let window = NSWindow(contentViewController: PreferencesController())
+        let ctrl = NSWindowController(window: window)
+        window.title = "Borg Machine Preferences"
+        
+        return ctrl
+    }
+    
     override func viewDidLoad() {
         
     }

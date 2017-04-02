@@ -21,6 +21,16 @@ struct MainPreferences {
         set { json["repositoryType"] = newValue }
     }
     
+    var targetPaths: [String]? {
+        get { return json["targetPaths"] as? [String] }
+        set { json["targetPaths"] = newValue }
+    }
+    
+    var passphrase: String? {
+        get { return json["passphrase"] as? String }
+        set { json["passphrase"] = newValue }
+    }
+    
     fileprivate init(json: [String: Any]) {
         self.json = json
     }
@@ -56,6 +66,8 @@ class _AppPreferences {
         } else {
             main = MainPreferences(json: [:])
         }
+        
+        print(main)
     }
     
     func save() {

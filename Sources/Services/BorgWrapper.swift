@@ -37,42 +37,97 @@ func questionPrompt(message: String) -> String {
     }
 }
 
+class BorgLogMessage {
+    let json: [String: Any]
+    
+    var level: String {
+        return json["levelname"] as? String ?? "INFO"
+    }
+    
+    var message: String {
+        let base = json["message"] as? String ?? ""
+        
+        return base.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    init(json: [String: Any]) {
+        self.json = json
+    }
+    
+    func showAlert() {
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            
+            switch self.level {
+            case "ERROR":
+                alert.alertStyle = .critical
+                alert.messageText = "Borg Machine — Error"
+            case "WARNING":
+                alert.alertStyle = .warning
+                alert.messageText = "Borg Machine — Warning"
+            default:
+                alert.alertStyle = .informational
+                alert.messageText = "Borg Machine — Information"
+            }
+            
+            alert.informativeText = self.message
+            alert.addButton(withTitle: "OK")
+        
+            alert.runModal()
+        }
+    }
+}
+
 class BorgWrapper {
     static let binPath = Bundle.main.path(forAuxiliaryExecutable: "borg")!
     
-    private func run(_ arguments: [String]) -> BufferedStringSubprocess {
-        return BufferedStringSubprocess(BorgWrapper.binPath, arguments: arguments)
+    let repoPath: String
+    let passphrase: String
+    
+    init(repoPath path: String, passphrase: String) {
+        self.repoPath = path
+        self.passphrase = passphrase
     }
     
-    func initialize(repoPath path: String, passphrase: String, encryption: RepoEncryption = .repokeyBlake2) -> BufferedStringSubprocess {
-        let process = run(["init", "--log-json", "-e", encryption.rawValue, path])
+    init?(preferences: _AppPreferences) {
+        guard let path = preferences.main.repositoryPath,
+            let passphrase = preferences.main.passphrase else {
+            return nil
+        }
+        
+        self.repoPath = path
+        self.passphrase = passphrase
+    }
+    
+    private func run(_ arguments: [String], env: [String: String]) -> BufferedStringSubprocess {
+        return BufferedStringSubprocess(BorgWrapper.binPath, arguments: arguments, environment: env)
+    }
+    
+    func initialize(encryption: RepoEncryption = .repokeyBlake2) -> BufferedStringSubprocess {
+        let env = [
+            "BORG_PASSPHRASE": passphrase,
+            "BORG_REPO": repoPath
+        ]
+        
+        let process = run([
+            "init", "--log-json",
+            "-e", encryption.rawValue,
+            repoPath
+        ], env: env)
         
         process.onLogOutput = { line in
-            print(line)
-            let json = try? JSONSerialization.jsonObject(with: line.data(using: .utf8)!, options: []) as! [String: Any]
+            guard let json = JSONSerialization.jsonDict(with: line.data(using: .utf8)!) else {
+                return
+            }
             
-            if let type = json?["type"] as? String {
+            if let type = json["type"] as? String {
                 switch type {
                 case "question_prompt":
                     DispatchQueue.main.async {
-                        process.write(string: questionPrompt(message: json?["message"] as? String ?? ""))
+                        process.write(string: questionPrompt(message: json["message"] as? String ?? ""))
                     }
-                    
                 case "log_message":
-                    let alert = NSAlert()
-                    
-                    let level = json?["levelname"] as? String
-                    
-                    if level == "ERROR" {
-                        alert.messageText = json?["message"] as? String ?? ""
-                        alert.addButton(withTitle: "OK")
-                        
-                        DispatchQueue.main.async {
-                            let response = alert.runModal()
-                            print(response)
-                        }
-                    }
-                    
+                    BorgLogMessage(json: json).showAlert()
                 default:
                     break
                 }
@@ -80,10 +135,69 @@ class BorgWrapper {
         }
         
         process.launch()
+        return process
+    }
+    
+    func create(archive: String, paths: [String], compression: ArchiveCompression = .lz4) -> BufferedStringSubprocess {
+        let env = [
+            "BORG_PASSPHRASE": passphrase,
+            "BORG_REPO": repoPath
+        ]
         
-        process.write(string: passphrase)
-        process.write(string: passphrase)
+        let process = run([
+            "create", "--json", "--log-json", "--progress",
+            "-C", compression.rawValue,
+            "::\(archive)"] + paths, env: env)
         
+        process.onLogOutput = {
+            print($0)
+        }
+        
+        process.onLogProgress = {
+            print("PROGRESS: \($0)")
+        }
+        
+        process.launch()
+        return process
+    }
+    
+    func info(archive: String? = nil) -> BufferedStringSubprocess {
+        var args = ["info", "--json", "--log-json"]
+        
+        if let archive = archive {
+            args.append("::\(archive)")
+        }
+        
+        let process = run(args, env: [
+            "BORG_PASSPHRASE": passphrase,
+            "BORG_REPO": repoPath
+        ])
+        
+        process.onLogOutput = {
+            print($0)
+        }
+        
+        process.onLogProgress = {
+            print("PROGRESS: \($0)")
+        }
+        
+        process.launch()
+        return process
+    }
+    
+    func list(archive: String? = nil) -> BufferedStringSubprocess {
+        var args = ["list", "--json", "--log-json"]
+        
+        if let archive = archive {
+            args.append("::\(archive)")
+        }
+        
+        let process = run(args, env: [
+            "BORG_PASSPHRASE": passphrase,
+            "BORG_REPO": repoPath
+        ])
+        
+        process.launch()
         return process
     }
 }
@@ -95,38 +209,64 @@ class BufferedStringSubprocess {
     private let stdout = Pipe()
     private let stderr = Pipe()
     
-    private var buf = ""
+    private var progressBuf = ""
+    private var outputBuf = ""
     
+    var onLogProgress: ((String) -> ())?
     var onLogOutput: ((String) -> ())?
     
-    init(_ launchPath: String, arguments: [String]) {
+    init(_ launchPath: String, arguments: [String], environment: [String: String]? = nil) {
         task.standardInput = stdin
         task.standardOutput = stdout
         task.standardError = stderr
         
         task.launchPath = launchPath
         task.arguments = arguments
+        task.environment = environment
         
-        stdout.fileHandleForReading.readabilityHandler = { [unowned self] handle in
-            let out = String(data: handle.availableData, encoding: .utf8)!
-            print(out)
+        stdout.fileHandleForReading.readabilityHandler = { [weak self] handle in
+            guard let `self` = self else { return }
+            
+            self.progressBuf += String(data: handle.availableData, encoding: .utf8)!
         }
         
-        stderr.fileHandleForReading.readabilityHandler = { [unowned self] handle in
-            self.buf += String(data: handle.availableData, encoding: .utf8)!
+        stderr.fileHandleForReading.readabilityHandler = { [weak self] handle in
+            guard let `self` = self else { return }
             
-            var lines = self.buf.components(separatedBy: "\n")
+            self.outputBuf += String(data: handle.availableData, encoding: .utf8)!
+            
+            var lines = self.outputBuf.components(separatedBy: "\n")
             
             if let output = self.onLogOutput, lines.count > 1 {
-                self.buf = lines.popLast()!
+                self.outputBuf = lines.popLast()!
                 
                 lines.forEach(output)
             }
         }
+        
+        task.terminationHandler = { [weak self] _ in
+            guard let `self` = self else { return }
+            
+            // Avoids memory leaks.
+            self.onLogOutput = nil
+            self.onLogProgress = nil
+        }
+    }
+    
+    var output: String {
+        return progressBuf
+    }
+    
+    var outputJSON: [String: Any]? {
+        return JSONSerialization.jsonDict(with: progressBuf.data(using: .utf8)!)
     }
     
     func launch() {
         task.launch()
+    }
+    
+    func terminate() {
+        task.terminate()
     }
     
     func waitUntilExit() {
