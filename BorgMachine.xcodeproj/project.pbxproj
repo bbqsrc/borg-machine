@@ -19,6 +19,10 @@
 		C64EB93F1E92635000DA54AE /* BackupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB93E1E92635000DA54AE /* BackupTask.swift */; };
 		C64EB9411E926BA200DA54AE /* ListTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB9401E926BA200DA54AE /* ListTask.swift */; };
 		C64EB9431E92733A00DA54AE /* BorgMachineTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB9421E92733A00DA54AE /* BorgMachineTask.swift */; };
+		C64EB9451E927D1400DA54AE /* InfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB9441E927D1400DA54AE /* InfoTask.swift */; };
+		C64EB9471E928ACC00DA54AE /* ArchiveListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C64EB9461E928ACC00DA54AE /* ArchiveListView.xib */; };
+		C64EB9491E928B7300DA54AE /* ArchiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB9481E928B7300DA54AE /* ArchiveListView.swift */; };
+		C64EB94B1E928BA900DA54AE /* ArchiveListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB94A1E928BA900DA54AE /* ArchiveListController.swift */; };
 		C6795DC01E8FDAE000B079F9 /* borg in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6BB35BB1E8FD7C3002FFCBB /* borg */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C6B3655E1E8FE91C00942635 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B3655D1E8FE91C00942635 /* RxSwift.framework */; };
 		C6B3655F1E8FE91C00942635 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C6B3655D1E8FE91C00942635 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -284,6 +288,10 @@
 		C64EB93E1E92635000DA54AE /* BackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupTask.swift; sourceTree = "<group>"; };
 		C64EB9401E926BA200DA54AE /* ListTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTask.swift; sourceTree = "<group>"; };
 		C64EB9421E92733A00DA54AE /* BorgMachineTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorgMachineTask.swift; sourceTree = "<group>"; };
+		C64EB9441E927D1400DA54AE /* InfoTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTask.swift; sourceTree = "<group>"; };
+		C64EB9461E928ACC00DA54AE /* ArchiveListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArchiveListView.xib; sourceTree = "<group>"; };
+		C64EB9481E928B7300DA54AE /* ArchiveListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveListView.swift; sourceTree = "<group>"; };
+		C64EB94A1E928BA900DA54AE /* ArchiveListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveListController.swift; sourceTree = "<group>"; };
 		C6B364E71E8FE38200942635 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
 		C6B3652A1E8FE3A700942635 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Dependencies/RxSwift/build/Debug/RxCocoa.framework; sourceTree = "<group>"; };
 		C6B3652B1E8FE3A700942635 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Dependencies/RxSwift/build/Debug/RxSwift.framework; sourceTree = "<group>"; };
@@ -319,6 +327,7 @@
 				C6B365701E90A8AE00942635 /* SystemMenuController.swift */,
 				C6024CD11E8FBBFC0010B588 /* PreferencesController.swift */,
 				C6024CE61E8FD07C0010B588 /* OnboardingController.swift */,
+				C64EB94A1E928BA900DA54AE /* ArchiveListController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -330,6 +339,8 @@
 				C6024CD61E8FBF2A0010B588 /* PreferencesView.swift */,
 				C6024CE21E8FCDB30010B588 /* OnboardingView.xib */,
 				C6024CE41E8FCDBE0010B588 /* OnboardingView.swift */,
+				C64EB9461E928ACC00DA54AE /* ArchiveListView.xib */,
+				C64EB9481E928B7300DA54AE /* ArchiveListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -361,6 +372,7 @@
 				C64EB93E1E92635000DA54AE /* BackupTask.swift */,
 				C64EB9401E926BA200DA54AE /* ListTask.swift */,
 				C64EB9421E92733A00DA54AE /* BorgMachineTask.swift */,
+				C64EB9441E927D1400DA54AE /* InfoTask.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -738,6 +750,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6B969CA1E8D1D1D00897A60 /* Assets.xcassets in Resources */,
+				C64EB9471E928ACC00DA54AE /* ArchiveListView.xib in Resources */,
 				C6024CD51E8FBC450010B588 /* PreferencesView.xib in Resources */,
 				C6024CE31E8FCDB30010B588 /* OnboardingView.xib in Resources */,
 			);
@@ -751,17 +764,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6024CD71E8FBF2A0010B588 /* PreferencesView.swift in Sources */,
+				C64EB9491E928B7300DA54AE /* ArchiveListView.swift in Sources */,
 				C64EB9431E92733A00DA54AE /* BorgMachineTask.swift in Sources */,
 				C6024CE11E8FC6EC0010B588 /* AppPreferences.swift in Sources */,
 				C6024CE51E8FCDBE0010B588 /* OnboardingView.swift in Sources */,
 				C6024CD21E8FBBFC0010B588 /* PreferencesController.swift in Sources */,
 				C6B365711E90A8AE00942635 /* SystemMenuController.swift in Sources */,
 				C6024CCB1E8FBB8F0010B588 /* Extensions.swift in Sources */,
+				C64EB94B1E928BA900DA54AE /* ArchiveListController.swift in Sources */,
 				C6B365691E8FF57500942635 /* BackupService.swift in Sources */,
 				C6B969C61E8D1D1D00897A60 /* AppDelegate.swift in Sources */,
 				C64EB9411E926BA200DA54AE /* ListTask.swift in Sources */,
 				C6024CDA1E8FC4DF0010B588 /* BorgWrapper.swift in Sources */,
 				C6024CE71E8FD07C0010B588 /* OnboardingController.swift in Sources */,
+				C64EB9451E927D1400DA54AE /* InfoTask.swift in Sources */,
 				C64EB93F1E92635000DA54AE /* BackupTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

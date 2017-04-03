@@ -27,6 +27,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppDelegate.instance.showOnboardingWindow()
     }
     
+    @objc func viewArchives(_ sender: NSObject) {
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+            
+            let window = NSWindow(contentViewController: ArchiveListController())
+            let ctrl = NSWindowController(window: window)
+            
+            window.title = "Backup Archives"
+            
+            self.window = window
+            
+            ctrl.showWindow(self)
+        }
+    }
+    
     func showSummaryAlert(_ data: [String: Any]) {
         let alert = NSAlert()
         alert.informativeText = "\(data)"

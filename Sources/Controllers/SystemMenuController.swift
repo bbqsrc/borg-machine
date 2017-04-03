@@ -28,6 +28,11 @@ class SystemMenuController {
         action: #selector(AppDelegate.preferencesTapped(_:))
     )
     
+    let repoInfoItem = NSMenuItem(
+        title: "View Archives",
+        action: #selector(AppDelegate.viewArchives(_:))
+    )
+    
     func onStateChange(_ state: BackupState) {
         backupNowItem.isEnabled = true
         backupNowItem.title = "Back Up Now"
@@ -67,6 +72,7 @@ class SystemMenuController {
             secondaryInfoItem,
             NSMenuItem.separator(),
             backupNowItem,
+            repoInfoItem,
             NSMenuItem.separator(),
             prefsItem
         ]

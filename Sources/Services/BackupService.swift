@@ -23,8 +23,11 @@ class BackupService {
     let state = Variable<BackupState>(.noConfiguration)
     
     private func idleState() {
-        ListTask().start(onProgress: { [weak self] repoName, time in
-            self?.state.value = .idleWithHistory(repository: repoName, time: time)
+        ListTask().start(onProgress: { [weak self] record in
+            let repository = record.repository.location
+            let time = record.archives.last?.time ?? ""
+            
+            self?.state.value = .idleWithHistory(repository: repository, time: time)
         })
     }
     

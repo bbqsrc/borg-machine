@@ -160,11 +160,14 @@ class BorgWrapper {
         return process
     }
     
-    func info(archive: String? = nil) -> BufferedStringSubprocess {
+    func info(archive: String? = nil, all: Bool = false) -> BufferedStringSubprocess {
         var args = ["info", "--json", "--log-json"]
         
         if let archive = archive {
             args.append("::\(archive)")
+        } else if all {
+            args.append("--last")
+            args.append("9999999")
         }
         
         let process = run(args, env: [
