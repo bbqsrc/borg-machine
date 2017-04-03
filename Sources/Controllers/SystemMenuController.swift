@@ -7,23 +7,13 @@
 //
 
 import Cocoa
-
-enum SystemMenuState {
-    case cancellingBackup
-    case backingUp(info: String?)
-    case idleWithHistory(repository: String, time: String)
-    case noConfiguration
-}
+import RxSwift
 
 class SystemMenuController {
+    let bag = DisposeBag()
+    
     let menu = NSMenu()
     let statusItem: NSStatusItem
-
-    var lastState: SystemMenuState = .noConfiguration {
-        willSet {
-            onStateChange(newValue)
-        }
-    }
     
     let primaryInfoItem = NSMenuItem(title: "")
     let secondaryInfoItem = NSMenuItem(title: "")
@@ -38,7 +28,7 @@ class SystemMenuController {
         action: #selector(AppDelegate.preferencesTapped(_:))
     )
     
-    func onStateChange(_ state: SystemMenuState) {
+    func onStateChange(_ state: BackupState) {
         backupNowItem.isEnabled = true
         backupNowItem.title = "Back Up Now"
         
@@ -82,9 +72,11 @@ class SystemMenuController {
         ]
             
         items.forEach(menu.addItem)
-        
-        onStateChange(lastState)
-        
         statusItem.menu = menu
+        
+        BackupService.instance.state.asObservable()
+            .subscribe(onNext: {
+                [weak self] in self?.onStateChange($0)
+            }) => bag
     }
 }

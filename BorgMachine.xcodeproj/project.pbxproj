@@ -16,6 +16,9 @@
 		C6024CE31E8FCDB30010B588 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6024CE21E8FCDB30010B588 /* OnboardingView.xib */; };
 		C6024CE51E8FCDBE0010B588 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6024CE41E8FCDBE0010B588 /* OnboardingView.swift */; };
 		C6024CE71E8FD07C0010B588 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6024CE61E8FD07C0010B588 /* OnboardingController.swift */; };
+		C64EB93F1E92635000DA54AE /* BackupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB93E1E92635000DA54AE /* BackupTask.swift */; };
+		C64EB9411E926BA200DA54AE /* ListTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB9401E926BA200DA54AE /* ListTask.swift */; };
+		C64EB9431E92733A00DA54AE /* BorgMachineTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB9421E92733A00DA54AE /* BorgMachineTask.swift */; };
 		C6795DC01E8FDAE000B079F9 /* borg in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6BB35BB1E8FD7C3002FFCBB /* borg */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C6B3655E1E8FE91C00942635 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B3655D1E8FE91C00942635 /* RxSwift.framework */; };
 		C6B3655F1E8FE91C00942635 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C6B3655D1E8FE91C00942635 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -278,6 +281,9 @@
 		C6024CE21E8FCDB30010B588 /* OnboardingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
 		C6024CE41E8FCDBE0010B588 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		C6024CE61E8FD07C0010B588 /* OnboardingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
+		C64EB93E1E92635000DA54AE /* BackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupTask.swift; sourceTree = "<group>"; };
+		C64EB9401E926BA200DA54AE /* ListTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTask.swift; sourceTree = "<group>"; };
+		C64EB9421E92733A00DA54AE /* BorgMachineTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorgMachineTask.swift; sourceTree = "<group>"; };
 		C6B364E71E8FE38200942635 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
 		C6B3652A1E8FE3A700942635 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Dependencies/RxSwift/build/Debug/RxCocoa.framework; sourceTree = "<group>"; };
 		C6B3652B1E8FE3A700942635 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Dependencies/RxSwift/build/Debug/RxSwift.framework; sourceTree = "<group>"; };
@@ -285,7 +291,7 @@
 		C6B3655D1E8FE91C00942635 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6B365601E8FE91C00942635 /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6B365681E8FF57500942635 /* BackupService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupService.swift; sourceTree = "<group>"; };
-		C6B365701E90A8AE00942635 /* SystemMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SystemMenuController.swift; path = ../Views/SystemMenuController.swift; sourceTree = "<group>"; };
+		C6B365701E90A8AE00942635 /* SystemMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemMenuController.swift; sourceTree = "<group>"; };
 		C6B969C21E8D1D1D00897A60 /* BorgMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BorgMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6B969C51E8D1D1D00897A60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6B969C91E8D1D1D00897A60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -349,6 +355,16 @@
 			path = Dependencies;
 			sourceTree = "<group>";
 		};
+		C64EB9211E92632400DA54AE /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				C64EB93E1E92635000DA54AE /* BackupTask.swift */,
+				C64EB9401E926BA200DA54AE /* ListTask.swift */,
+				C64EB9421E92733A00DA54AE /* BorgMachineTask.swift */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
 		C6B365291E8FE3A700942635 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +410,7 @@
 		C6B969C41E8D1D1D00897A60 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C64EB9211E92632400DA54AE /* Tasks */,
 				C6024CD81E8FC4C30010B588 /* Services */,
 				C6024CD31E8FBC200010B588 /* Views */,
 				C6024CD01E8FBBD90010B588 /* Controllers */,
@@ -734,6 +751,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6024CD71E8FBF2A0010B588 /* PreferencesView.swift in Sources */,
+				C64EB9431E92733A00DA54AE /* BorgMachineTask.swift in Sources */,
 				C6024CE11E8FC6EC0010B588 /* AppPreferences.swift in Sources */,
 				C6024CE51E8FCDBE0010B588 /* OnboardingView.swift in Sources */,
 				C6024CD21E8FBBFC0010B588 /* PreferencesController.swift in Sources */,
@@ -741,8 +759,10 @@
 				C6024CCB1E8FBB8F0010B588 /* Extensions.swift in Sources */,
 				C6B365691E8FF57500942635 /* BackupService.swift in Sources */,
 				C6B969C61E8D1D1D00897A60 /* AppDelegate.swift in Sources */,
+				C64EB9411E926BA200DA54AE /* ListTask.swift in Sources */,
 				C6024CDA1E8FC4DF0010B588 /* BorgWrapper.swift in Sources */,
 				C6024CE71E8FD07C0010B588 /* OnboardingController.swift in Sources */,
+				C64EB93F1E92635000DA54AE /* BackupTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

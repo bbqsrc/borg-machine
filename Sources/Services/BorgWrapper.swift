@@ -157,7 +157,6 @@ class BorgWrapper {
             print("PROGRESS: \($0)")
         }
         
-        process.launch()
         return process
     }
     
@@ -181,7 +180,6 @@ class BorgWrapper {
             print("PROGRESS: \($0)")
         }
         
-        process.launch()
         return process
     }
     
@@ -197,7 +195,6 @@ class BorgWrapper {
             "BORG_REPO": repoPath
         ])
         
-        process.launch()
         return process
     }
 }
@@ -251,6 +248,14 @@ class BufferedStringSubprocess {
             self.onLogOutput = nil
             self.onLogProgress = nil
         }
+    }
+    
+    var exitCode: Int32 {
+        return task.terminationStatus
+    }
+    
+    var isRunning: Bool {
+        return task.isRunning
     }
     
     var output: String {
