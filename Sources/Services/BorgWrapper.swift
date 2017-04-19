@@ -165,9 +165,14 @@ class BorgWrapper {
         
         if let archive = archive {
             args.append("::\(archive)")
-        } else if all {
+        } else {
             args.append("--last")
-            args.append("9999999")
+            
+            if all {
+                args.append("9999999")
+            } else {
+                args.append("1")
+            }
         }
         
         let process = run(args, env: [

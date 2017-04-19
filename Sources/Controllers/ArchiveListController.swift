@@ -23,11 +23,20 @@ class ArchiveListController: ViewController<ArchiveListView>, NSTableViewDelegat
         })
     }
     
+    var window: NSWindow? = nil
+    
     func onDoubleTapRow(_ sender: NSTableView) {
         guard let archive = viewModel.listRecord.value?.archives[sender.clickedRow] else { return }
         
-        InfoTask(archive: archive.name).start(onProgress: {
-            print($0)
+        ListTask(archive: archive.name).start(onProgress: { [weak self] record in
+            guard let `self` = self else { return }
+            
+            let window = NSWindow(contentViewController: ArchiveFileController(archive: record))
+            let ctrl = NSWindowController(window: window)
+            
+            self.window = window
+            
+            ctrl.showWindow(self)
         })
     }
     

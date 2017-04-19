@@ -53,24 +53,23 @@ struct ListRecord {
 }
 
 class ListTask: BorgMachineTask {
-    typealias T = ListRecord
+    typealias T = ArchiveListRecord
     
     var state = TaskState.notStarted
     let task: BufferedStringSubprocess
     
-    init(archive archiveName: String? = nil, preferences: _AppPreferences = AppPreferences) {
+    init(archive archiveName: String, preferences: _AppPreferences = AppPreferences) {
         let borg = BorgWrapper(preferences: preferences)!
-        
         task = borg.list(archive: archiveName)
     }
     
-    func run(onProgress: @escaping (T) -> ()) {
+    func run(onProgress: @escaping (ArchiveListRecord) -> ()) {
         task.launch()
         state = .running
         
         task.waitUntilExit()
         
-        if let data = task.outputJSON, let record = ListRecord(json: data) {
+        if let data = task.outputJSON, let record = ArchiveListRecord(json: data) {
             DispatchQueue.main.async {
                 onProgress(record)
             }
