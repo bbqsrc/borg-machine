@@ -52,6 +52,8 @@ class BackupService {
             },
             onExit: { [weak self] in
                 self?.idleState()
+                
+                self?.currentBackupTask = nil
             }
         )
     }
