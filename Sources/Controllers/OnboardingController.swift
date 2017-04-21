@@ -172,7 +172,7 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
             #selector(OnboardingController.targetRemoveButtonTapped(_:))
         
         viewModel.repositoryPath.asObservable()
-            .bind(to: contentView.repositoryPathField.rx.text) => bag
+            .bindTo(contentView.repositoryPathField.rx.text) => bag
         
         viewModel.targetPaths.asObservable()
             .subscribe(onNext: { [weak self] _ in
@@ -185,10 +185,10 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
             }) => bag
         
         contentView.repositoryPathField.rx.text
-            .filterNil().bind(to: viewModel.repositoryPath) => bag
+            .filterNil().bindTo(viewModel.repositoryPath) => bag
         
         contentView.passphraseTextField.rx.text
-            .filterNil().bind(to: viewModel.passphrase) => bag
+            .filterNil().bindTo(viewModel.passphrase) => bag
     }
     
     override func viewWillDisappear() {

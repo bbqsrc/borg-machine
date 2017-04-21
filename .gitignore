@@ -19,3 +19,4 @@ xcuserdata/
 *.xcscmblueprint
 
 Dependencies/borg
+Pods/
