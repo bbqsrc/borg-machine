@@ -196,7 +196,6 @@ fileprivate class Node<T>: CustomDebugStringConvertible {
             return self.order[0].firstValued
         }
         
-        print("\(self)")
         return nil
     }
     

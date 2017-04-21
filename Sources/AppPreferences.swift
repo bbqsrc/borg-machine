@@ -66,8 +66,6 @@ class _AppPreferences {
         } else {
             main = MainPreferences(json: [:])
         }
-        
-        print(main)
     }
     
     func save() {
