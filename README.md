@@ -12,9 +12,9 @@ Open `BorgMachine.xcworkspace` in Xcode and build.
 
 ## Roadmap to first useful alpha
 
-- Finish the preferences screen
-- Add support for remote repositories
-- Add support for scheduled backups
+- [X] Add support for remote repositories
+- [ ] Add support for scheduled backups
+- [ ] Finish the preferences screen
 
 ## License
 
