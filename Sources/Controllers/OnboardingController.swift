@@ -98,12 +98,23 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
         
         AppPreferences.save()
         
-        DispatchQueue.global(qos: .background).async {
-            let task = BorgWrapper(preferences: AppPreferences)!.initialize()
-            
-            task.launch()
-            task.waitUntilExit()
+        let task = BorgWrapper(preferences: AppPreferences)!.initialize()
+        
+        task.onComplete = {
+            DispatchQueue.main.async {
+                let alert = NSAlert()
+                
+                alert.addButton(withTitle: "OK")
+                
+                alert.alertStyle = .informational
+                alert.messageText = "Repository Created"
+                alert.informativeText = "Your repository at \(self.viewModel.repositoryPath.value) has been created. You may now make backups."
+                
+                alert.runModal()
+            }
         }
+        
+        task.launch()
     }
 
     func repositoryPathChooseButtonTapped(_ sender: NSObject) {
