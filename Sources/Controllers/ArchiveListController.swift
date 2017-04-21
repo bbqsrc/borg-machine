@@ -31,12 +31,16 @@ class ArchiveListController: ViewController<ArchiveListView>, NSTableViewDelegat
         ListTask(archive: archive.name).start(onProgress: { [weak self] record in
             guard let `self` = self else { return }
             
-            let window = NSWindow(contentViewController: ArchiveFileController(archive: record))
+            let window = NSWindow(contentViewController: ArchiveFileController(info: archive, archive: record))
             let ctrl = NSWindowController(window: window)
+            
+            window.title = archive.name
             
             self.window = window
             
             ctrl.showWindow(self)
+            window.makeKeyAndOrderFront(self)
+            NSApp.activate(ignoringOtherApps: true)
         })
     }
     

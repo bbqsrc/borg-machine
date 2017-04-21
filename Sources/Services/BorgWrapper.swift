@@ -160,6 +160,27 @@ class BorgWrapper {
         return process
     }
     
+    func extract(archive: String, paths: [String], outputDirectory: String) -> BufferedStringSubprocess {
+        let args = ["extract", "-p", "--log-json", "::\(archive)"] + paths
+        
+        let process = run(args, env: [
+            "BORG_PASSPHRASE": passphrase,
+            "BORG_REPO": repoPath
+        ])
+        
+        process.currentDirectoryPath = outputDirectory
+        
+        process.onLogOutput = {
+            print($0)
+        }
+        
+        process.onLogProgress = {
+            print("PROGRESS: \($0)")
+        }
+        
+        return process
+    }
+    
     func info(archive: String? = nil, all: Bool = false) -> BufferedStringSubprocess {
         var args = ["info", "--json", "--log-json"]
         
@@ -219,6 +240,7 @@ class BufferedStringSubprocess {
     
     var onLogProgress: ((String) -> ())?
     var onLogOutput: ((String) -> ())?
+    var onComplete: (() -> ())?
     
     init(_ launchPath: String, arguments: [String], environment: [String: String]? = nil) {
         task.standardInput = stdin
@@ -252,10 +274,20 @@ class BufferedStringSubprocess {
         task.terminationHandler = { [weak self] _ in
             guard let `self` = self else { return }
             
+            if self.exitCode == 0 {
+                self.onComplete?()
+            }
+            
             // Avoids memory leaks.
             self.onLogOutput = nil
             self.onLogProgress = nil
+            self.onComplete = nil
         }
+    }
+    
+    var currentDirectoryPath: String {
+        get { return task.currentDirectoryPath }
+        set { task.currentDirectoryPath = newValue }
     }
     
     var exitCode: Int32 {

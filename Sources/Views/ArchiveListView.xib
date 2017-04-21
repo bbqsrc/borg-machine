@@ -14,13 +14,13 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Bs-uV-UgT">
-                    <rect key="frame" x="20" y="20" width="741" height="376"/>
+                    <rect key="frame" x="0.0" y="0.0" width="781" height="416"/>
                     <clipView key="contentView" id="SGb-bS-26h">
-                        <rect key="frame" x="1" y="0.0" width="739" height="375"/>
+                        <rect key="frame" x="1" y="0.0" width="779" height="415"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="83a-Kg-AML" viewBased="YES" id="6Rd-iY-h0j">
-                                <rect key="frame" x="0.0" y="0.0" width="739" height="352"/>
+                                <rect key="frame" x="0.0" y="0.0" width="779" height="392"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -47,7 +47,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" id="5Su-dZ-38d">
-                                                            <font key="font" metaFont="controlContent"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -80,7 +80,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="116" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="D5l-64-xsm">
-                                                            <font key="font" metaFont="controlContent"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -113,7 +113,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="76" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="bOA-nL-Ygg">
-                                                            <font key="font" metaFont="controlContent"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -146,7 +146,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="76" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="592-d2-WZ9">
-                                                            <font key="font" metaFont="controlContent"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -179,7 +179,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="76" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="pr1-iE-eNZ">
-                                                            <font key="font" metaFont="controlContent"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -212,7 +212,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="72" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="0ho-ti-M7U">
-                                                            <font key="font" metaFont="controlContent"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -237,16 +237,16 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="83a-Kg-AML">
-                        <rect key="frame" x="0.0" y="0.0" width="739" height="23"/>
+                        <rect key="frame" x="0.0" y="0.0" width="779" height="23"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="8Bs-uV-UgT" secondAttribute="trailing" constant="20" id="6R2-tt-64V"/>
-                <constraint firstAttribute="bottom" secondItem="8Bs-uV-UgT" secondAttribute="bottom" constant="20" id="ItQ-um-eMx"/>
-                <constraint firstItem="8Bs-uV-UgT" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" id="KTJ-wd-c7g"/>
-                <constraint firstItem="8Bs-uV-UgT" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="SMz-59-NGG"/>
+                <constraint firstAttribute="trailing" secondItem="8Bs-uV-UgT" secondAttribute="trailing" id="6R2-tt-64V"/>
+                <constraint firstAttribute="bottom" secondItem="8Bs-uV-UgT" secondAttribute="bottom" id="ItQ-um-eMx"/>
+                <constraint firstItem="8Bs-uV-UgT" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="KTJ-wd-c7g"/>
+                <constraint firstItem="8Bs-uV-UgT" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="SMz-59-NGG"/>
             </constraints>
             <connections>
                 <outlet property="tableView" destination="6Rd-iY-h0j" id="JyC-cP-gup"/>

@@ -70,29 +70,41 @@ class Node<T>: CustomDebugStringConvertible {
         
         var cur = parent
         
-        while let p = cur {
-            if p.value != nil || p.children.count > 1 || p.baseName == "/" {
+        while let p = cur, let parent = p.parent {
+            if p.value != nil || p.baseName == "/" || parent.logicalChildren.contains(where: { $0 === p }) {
                 break
             }
             
             chunks.append(p.baseName)
-            cur = p.parent
+            cur = parent
         }
         
         return chunks.reversed().joined(separator: "/")
     }
     
-    var firstValued: Node<T>? {
-        if order.isEmpty {
-            return nil
-        }
-        
-        if order[0].children.count == 1 && order[0].value == nil {
-            return order[0].firstValued
-        } else {
+    private var firstValued: Node<T>? {
+        // If has a value in and of itself, is a valid leaf
+        if self.value != nil {
             return self
         }
+        
+        // If have more than 1 child, is a valid junction
+        if order.count > 1 {
+            return self
+        }
+        
+        // Only one child, continue the dance
+        if order.count == 1 {
+            return self.order[0].firstValued
+        }
+        
+        print("\(self)")
+        return nil
     }
+    
+    lazy var logicalChildren: [Node<T>] = {
+        return self.order.flatMap { $0.firstValued }
+    }()
     
     subscript(path: String) -> Node<T>? {
         get {
@@ -144,18 +156,59 @@ func parseNodes(_ archive: ArchiveListRecord) -> Node<FileRecord> {
         cur.value = item
     }
     
+    assert(root.order.count == root.children.count)
+    
     return root
 }
 
 class ArchiveFileController: ViewController<ArchiveFileView>, NSOutlineViewDelegate, NSOutlineViewDataSource {
     let archive: ArchiveListRecord
     let tree: Node<FileRecord>
+    let info: InfoArchiveRecord
     
-    init(archive: ArchiveListRecord) {
+    let borg = BorgWrapper(preferences: AppPreferences)!
+    
+    init(info: InfoArchiveRecord, archive: ArchiveListRecord) {
+        self.info = info
         self.archive = archive
         self.tree = parseNodes(archive)
         
         super.init()
+        
+        contentView.outlineView.menu = NSMenu()
+        contentView.outlineView.menu?.addItem(withTitle: "Extract", action: #selector(extract(_:)), keyEquivalent: "e")
+    }
+    
+    func runExtraction(paths: [String], outputDir: URL) {
+        let process = borg.extract(archive: info.name, paths: paths, outputDirectory: outputDir.path)
+        
+        process.onComplete = {
+            NSWorkspace.shared().open(outputDir)
+        }
+        
+        process.launch()
+        process.waitUntilExit()
+    }
+    
+    func extract(_ sender: NSObject) {
+        let items = contentView.outlineView.selectedRowIndexes.map(
+            contentView.outlineView.item(atRow:)
+        ) as! [Node<FileRecord>]
+        let paths = items.flatMap({ $0.value }).map({ $0.path })
+        
+        let dialog = NSOpenPanel()
+        
+        dialog.title = "Select Output Path"
+        dialog.canChooseFiles = false
+        dialog.canChooseDirectories = true
+        dialog.allowsMultipleSelection = false
+        dialog.canCreateDirectories = true
+        
+        if dialog.runModal() == NSModalResponseOK {
+            if let outputDir = dialog.url {
+                runExtraction(paths: paths, outputDir: outputDir)
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -169,36 +222,26 @@ class ArchiveFileController: ViewController<ArchiveFileView>, NSOutlineViewDeleg
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         if let record = item as? Node<FileRecord> {
-            return record.firstValued![index]!
+            return record.logicalChildren[index]
         }
         
-        return tree.firstValued![index]!
+        return tree.logicalChildren[index]
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         if let item = item as? Node<FileRecord> {
-            return (item.firstValued?.count ?? 0) > 0
+            return item.logicalChildren.count > 0
         }
         
         return false
     }
     
-    /*
-    func outlineView(_ outlineView: NSOutlineView, objectValueFor tableColumn: NSTableColumn?, byItem item: Any?) -> Any? {
-        if let item = item as? Node<FileRecord> {
-            return item.value
-        }
-        
-        return nil
-    }
-    */
-    
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         if let item = item as? Node<FileRecord> {
-            return item.firstValued?.count ?? 0
+            return item.logicalChildren.count
         }
         
-        return tree.firstValued?.count ?? 0
+        return tree.logicalChildren.count
     }
     
     private lazy var folderIcon: NSImage = {

@@ -33,12 +33,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             let window = NSWindow(contentViewController: ArchiveListController())
             let ctrl = NSWindowController(window: window)
-            
-            window.title = "Backup Archives"
-            
             self.window = window
             
+            window.title = "Backup Archives"
             ctrl.showWindow(self)
+            window.makeKeyAndOrderFront(self)
+            NSApp.activate(ignoringOtherApps: true)
         }
     }
     
@@ -55,9 +55,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let window = NSWindow(contentViewController: OnboardingController())
             let ctrl = NSWindowController(window: window)
             
-            self.window = window
+            window.titleVisibility = .hidden
+            window.titlebarAppearsTransparent = true
             
+            self.window = window
             ctrl.showWindow(self)
+            window.makeKeyAndOrderFront(self)
+            NSApp.activate(ignoringOtherApps: true)
         }
     }
     
