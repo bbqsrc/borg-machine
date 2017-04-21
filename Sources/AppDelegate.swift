@@ -71,9 +71,15 @@ extension AppDelegate: NSUserNotificationCenterDelegate {
         alert.runModal()
     }
     
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+        return true
+    }
+    
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
-        if notification.identifier == BorgNotifications.backupCompleted.rawValue {
-            showSummaryAlert(notification.userInfo!)
+        guard let id = notification.userInfo?["id"] as? String else { return }
+        
+        if id == BorgNotifications.backupCompleted.rawValue {
+            showSummaryAlert(notification.userInfo!["payload"] as! [String: Any])
         }
     }
 }

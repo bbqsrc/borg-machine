@@ -37,18 +37,23 @@ class BackupTask: BorgMachineTask {
             let n = NSUserNotification()
             n.soundName = NSUserNotificationDefaultSoundName
             n.hasActionButton = true
-            n.identifier = BorgNotifications.backupCompleted.rawValue
-            n.userInfo = output
+            n.userInfo = [
+                "id": BorgNotifications.backupCompleted.rawValue,
+                "payload": output
+            ]
             
             guard let archive = output["archive"] as? [String: Any] else {
                 return
             }
             let archiveName = archive["name"] as? String ?? "<unknown>"
             
-            n.informativeText = "Backup \(archiveName) Completed"
+            n.title = "Backup Completed"
+            n.informativeText = archiveName
             n.actionButtonTitle = "More Info"
             
-            NSUserNotificationCenter.default.deliver(n)
+            NSUserNotificationCenter.default.scheduleNotification(n)
+            
+            //NSUserNotificationCenter.default.deliver(n)
         }
     }
     
