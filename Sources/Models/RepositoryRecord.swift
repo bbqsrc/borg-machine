@@ -7,9 +7,16 @@
 //
 
 import Foundation
+import Mapper
 
-struct RepositoryRecord {
+struct RepositoryRecord: Mappable {
     let id: String
     let lastModified: String
     let location: String
+    
+    init(map: Mapper) throws {
+        try id = map.from("id")
+        try lastModified = map.from("last_modified")
+        try location = map.from("location")
+    }
 }

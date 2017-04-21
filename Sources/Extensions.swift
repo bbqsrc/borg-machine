@@ -8,6 +8,7 @@
 
 import Cocoa
 import RxSwift
+import Mapper
 
 infix operator =>
 
@@ -147,5 +148,11 @@ extension NSWindowController {
         NSApp.activate(ignoringOtherApps: true)
         
         objc_setAssociatedObject(sender, NSWindowController.windowKey, window, .OBJC_ASSOCIATION_RETAIN)
+    }
+}
+
+extension Mappable {
+    static func from(_ JSON: [String: Any?]) -> Self? {
+        return self.from(JSON as NSDictionary)
     }
 }

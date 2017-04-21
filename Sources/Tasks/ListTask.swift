@@ -25,7 +25,7 @@ class ListTask: BorgMachineTask {
         
         task.waitUntilExit()
         
-        if let data = task.outputJSON, let record = ArchiveListRecord(json: data) {
+        if let data = task.outputJSON, let record = ArchiveListRecord.from(data) {
             DispatchQueue.main.async {
                 onProgress(record)
             }

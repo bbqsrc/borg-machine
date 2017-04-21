@@ -7,11 +7,20 @@
 //
 
 import Foundation
+import Mapper
 
-struct InfoArchiveRecord {
+struct InfoArchiveRecord: Mappable {
     let id: String
     let name: String
     let start: String
     let end: String
     let stats: InfoArchiveStatsRecord
+    
+    init(map: Mapper) throws {
+        try id = map.from("id")
+        try name = map.from("name")
+        try start = map.from("start")
+        try end = map.from("end")
+        try stats = map.from("stats")
+    }
 }

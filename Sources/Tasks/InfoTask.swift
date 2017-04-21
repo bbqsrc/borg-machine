@@ -30,7 +30,7 @@ class InfoTask: BorgMachineTask {
         
         task.waitUntilExit()
         
-        if let data = task.outputJSON, let record = InfoRecord(json: data) {
+        if let data = task.outputJSON, let record = InfoRecord.from(data) {
             DispatchQueue.main.async {
                 onProgress(record)
             }

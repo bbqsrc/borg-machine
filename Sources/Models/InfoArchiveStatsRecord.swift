@@ -7,10 +7,18 @@
 //
 
 import Foundation
+import Mapper
 
-struct InfoArchiveStatsRecord {
+struct InfoArchiveStatsRecord: Mappable {
     let compressedSize: UIntMax
     let deduplicatedSize: UIntMax
     let fileCount: UIntMax
     let originalSize: UIntMax
+    
+    init(map: Mapper) throws {
+        try compressedSize = map.from("compressed_size")
+        try deduplicatedSize = map.from("deduplicated_size")
+        try fileCount = map.from("nfiles")
+        try originalSize = map.from("original_size")
+    }
 }
