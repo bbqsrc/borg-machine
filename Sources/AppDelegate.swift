@@ -19,50 +19,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow? = nil
     var systemMenuController: SystemMenuController!
     
-    @objc func backUpNowTapped(_ sender: NSObject) {
-        BackupService.instance.startManualBackup()
-    }
-    
-    @objc func preferencesTapped(_ sender: NSObject) {
-        AppDelegate.instance.showOnboardingWindow()
-    }
-    
-    @objc func viewArchives(_ sender: NSObject) {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
-            
-            let window = NSWindow(contentViewController: ArchiveListController())
-            let ctrl = NSWindowController(window: window)
-            self.window = window
-            
-            window.title = "Backup Archives"
-            ctrl.showWindow(self)
-            window.makeKeyAndOrderFront(self)
-            NSApp.activate(ignoringOtherApps: true)
-        }
-    }
-    
     func showSummaryAlert(_ data: [String: Any]) {
         let alert = NSAlert()
         alert.informativeText = "\(data)"
         alert.runModal()
-    }
-    
-    func showOnboardingWindow() {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
-            
-            let window = NSWindow(contentViewController: OnboardingController())
-            let ctrl = NSWindowController(window: window)
-            
-            window.titleVisibility = .hidden
-            window.titlebarAppearsTransparent = true
-            
-            self.window = window
-            ctrl.showWindow(self)
-            window.makeKeyAndOrderFront(self)
-            NSApp.activate(ignoringOtherApps: true)
-        }
     }
     
     private func singleInstanceCheck() {
@@ -90,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         systemMenuController = SystemMenuController()
         
         if AppPreferences.main.repositoryPath == nil {
-            showOnboardingWindow()
+            OnboardingController.inWindow().show(self)
         }
     }
     

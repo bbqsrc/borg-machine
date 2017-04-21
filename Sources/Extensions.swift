@@ -32,8 +32,9 @@ extension JSONSerialization {
 }
 
 extension NSMenuItem {
-    convenience init(title: String, action: Selector? = nil) {
+    convenience init(title: String, target: AnyObject? = nil, action: Selector? = nil) {
         self.init(title: title, action: action, keyEquivalent: "")
+        self.target = target
     }
 }
 
@@ -132,5 +133,19 @@ extension FileManager {
         if let error = errorDidOccur { throw error }
         
         return accumulatedSize
+    }
+}
+
+extension NSWindowController {
+    static let windowKey = UnsafeMutablePointer<UInt8>.allocate(capacity: 1)
+    
+    func show(_ sender: Any) {
+        guard let window = window else { return }
+        
+        self.showWindow(sender)
+        window.makeKeyAndOrderFront(sender)
+        NSApp.activate(ignoringOtherApps: true)
+        
+        objc_setAssociatedObject(sender, NSWindowController.windowKey, window, .OBJC_ASSOCIATION_RETAIN)
     }
 }

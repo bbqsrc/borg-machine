@@ -84,4 +84,3 @@ class BackupTask: BorgMachineTask {
         dispatchNotification()
     }
 }
-

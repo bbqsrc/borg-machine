@@ -11,20 +11,7 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-fileprivate let sizeProcessingQueue = DispatchQueue(
-    label: "BorgMachine.SizeProcessingQueue",
-    qos: .background,
-    attributes: [],
-    autoreleaseFrequency: .inherit,
-    target: nil
-)
-
-struct TargetPath {
-    let path: String
-    let size: Int64?
-}
-
-class OnboardingViewModel {
+fileprivate class OnboardingViewModel {
     let bag = DisposeBag()
     
     let repositoryPath = Variable<String>("")
@@ -80,7 +67,17 @@ class OnboardingViewModel {
 
 class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSource, NSTableViewDelegate {
     var bag = DisposeBag()
-    let viewModel = OnboardingViewModel()
+    fileprivate let viewModel = OnboardingViewModel()
+    
+    static func inWindow() -> NSWindowController {
+        let window = NSWindow(contentViewController: OnboardingController())
+        let ctrl = NSWindowController(window: window)
+        
+        window.titleVisibility = .hidden
+        window.titlebarAppearsTransparent = true
+        
+        return ctrl
+    }
     
     override init() {
         super.init()
@@ -229,4 +226,17 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
         
         return cell
     }
+}
+
+fileprivate let sizeProcessingQueue = DispatchQueue(
+    label: "BorgMachine.SizeProcessingQueue",
+    qos: .background,
+    attributes: [],
+    autoreleaseFrequency: .inherit,
+    target: nil
+)
+
+fileprivate struct TargetPath {
+    let path: String
+    let size: Int64?
 }

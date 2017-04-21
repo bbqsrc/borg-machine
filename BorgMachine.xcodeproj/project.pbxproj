@@ -21,12 +21,21 @@
 		C63262111E929B77002CD9DB /* ArchiveFileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63262101E929B77002CD9DB /* ArchiveFileController.swift */; };
 		C64EB93F1E92635000DA54AE /* BackupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB93E1E92635000DA54AE /* BackupTask.swift */; };
 		C64EB9411E926BA200DA54AE /* ListTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB9401E926BA200DA54AE /* ListTask.swift */; };
-		C64EB9431E92733A00DA54AE /* BorgMachineTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB9421E92733A00DA54AE /* BorgMachineTask.swift */; };
 		C64EB9451E927D1400DA54AE /* InfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB9441E927D1400DA54AE /* InfoTask.swift */; };
 		C64EB9471E928ACC00DA54AE /* ArchiveListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C64EB9461E928ACC00DA54AE /* ArchiveListView.xib */; };
 		C64EB9491E928B7300DA54AE /* ArchiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB9481E928B7300DA54AE /* ArchiveListView.swift */; };
 		C64EB94B1E928BA900DA54AE /* ArchiveListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB94A1E928BA900DA54AE /* ArchiveListController.swift */; };
+		C6609B671EA9E63F007A672D /* FileRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6609B661EA9E63F007A672D /* FileRecord.swift */; };
+		C6609B691EA9E65F007A672D /* ArchiveListRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6609B681EA9E65F007A672D /* ArchiveListRecord.swift */; };
 		C6795DC01E8FDAE000B079F9 /* borg in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6BB35BB1E8FD7C3002FFCBB /* borg */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C688502B1EA9EB3E007CDF53 /* ArchiveRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688502A1EA9EB3E007CDF53 /* ArchiveRecord.swift */; };
+		C68850491EA9EB47007CDF53 /* ListRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68850481EA9EB47007CDF53 /* ListRecord.swift */; };
+		C688504C1EA9EB88007CDF53 /* BorgMachineTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688504B1EA9EB88007CDF53 /* BorgMachineTask.swift */; };
+		C688504E1EA9EBAE007CDF53 /* InfoArchiveStatsRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688504D1EA9EBAE007CDF53 /* InfoArchiveStatsRecord.swift */; };
+		C68850501EA9EBC0007CDF53 /* InfoArchiveRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688504F1EA9EBC0007CDF53 /* InfoArchiveRecord.swift */; };
+		C68850521EA9EBE1007CDF53 /* RepositoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68850511EA9EBE1007CDF53 /* RepositoryRecord.swift */; };
+		C68850541EA9EC01007CDF53 /* InfoRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68850531EA9EC01007CDF53 /* InfoRecord.swift */; };
+		C68850571EA9EC7A007CDF53 /* BufferedStringProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68850561EA9EC7A007CDF53 /* BufferedStringProcess.swift */; };
 		C6B3655E1E8FE91C00942635 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B3655D1E8FE91C00942635 /* RxSwift.framework */; };
 		C6B3655F1E8FE91C00942635 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C6B3655D1E8FE91C00942635 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C6B365611E8FE91C00942635 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B365601E8FE91C00942635 /* RxCocoa.framework */; };
@@ -293,11 +302,20 @@
 		C63262101E929B77002CD9DB /* ArchiveFileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveFileController.swift; sourceTree = "<group>"; };
 		C64EB93E1E92635000DA54AE /* BackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupTask.swift; sourceTree = "<group>"; };
 		C64EB9401E926BA200DA54AE /* ListTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTask.swift; sourceTree = "<group>"; };
-		C64EB9421E92733A00DA54AE /* BorgMachineTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorgMachineTask.swift; sourceTree = "<group>"; };
 		C64EB9441E927D1400DA54AE /* InfoTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTask.swift; sourceTree = "<group>"; };
 		C64EB9461E928ACC00DA54AE /* ArchiveListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArchiveListView.xib; sourceTree = "<group>"; };
 		C64EB9481E928B7300DA54AE /* ArchiveListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveListView.swift; sourceTree = "<group>"; };
 		C64EB94A1E928BA900DA54AE /* ArchiveListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveListController.swift; sourceTree = "<group>"; };
+		C6609B661EA9E63F007A672D /* FileRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileRecord.swift; sourceTree = "<group>"; };
+		C6609B681EA9E65F007A672D /* ArchiveListRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveListRecord.swift; sourceTree = "<group>"; };
+		C688502A1EA9EB3E007CDF53 /* ArchiveRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveRecord.swift; sourceTree = "<group>"; };
+		C68850481EA9EB47007CDF53 /* ListRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRecord.swift; sourceTree = "<group>"; };
+		C688504B1EA9EB88007CDF53 /* BorgMachineTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorgMachineTask.swift; sourceTree = "<group>"; };
+		C688504D1EA9EBAE007CDF53 /* InfoArchiveStatsRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoArchiveStatsRecord.swift; sourceTree = "<group>"; };
+		C688504F1EA9EBC0007CDF53 /* InfoArchiveRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoArchiveRecord.swift; sourceTree = "<group>"; };
+		C68850511EA9EBE1007CDF53 /* RepositoryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryRecord.swift; sourceTree = "<group>"; };
+		C68850531EA9EC01007CDF53 /* InfoRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoRecord.swift; sourceTree = "<group>"; };
+		C68850561EA9EC7A007CDF53 /* BufferedStringProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferedStringProcess.swift; sourceTree = "<group>"; };
 		C6B364E71E8FE38200942635 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
 		C6B3652A1E8FE3A700942635 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Dependencies/RxSwift/build/Debug/RxCocoa.framework; sourceTree = "<group>"; };
 		C6B3652B1E8FE3A700942635 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Dependencies/RxSwift/build/Debug/RxSwift.framework; sourceTree = "<group>"; };
@@ -330,11 +348,11 @@
 		C6024CD01E8FBBD90010B588 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C6B365701E90A8AE00942635 /* SystemMenuController.swift */,
-				C6024CD11E8FBBFC0010B588 /* PreferencesController.swift */,
-				C6024CE61E8FD07C0010B588 /* OnboardingController.swift */,
-				C64EB94A1E928BA900DA54AE /* ArchiveListController.swift */,
 				C63262101E929B77002CD9DB /* ArchiveFileController.swift */,
+				C64EB94A1E928BA900DA54AE /* ArchiveListController.swift */,
+				C6024CE61E8FD07C0010B588 /* OnboardingController.swift */,
+				C6024CD11E8FBBFC0010B588 /* PreferencesController.swift */,
+				C6B365701E90A8AE00942635 /* SystemMenuController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -342,14 +360,14 @@
 		C6024CD31E8FBC200010B588 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C6024CD41E8FBC450010B588 /* PreferencesView.xib */,
-				C6024CD61E8FBF2A0010B588 /* PreferencesView.swift */,
-				C6024CE21E8FCDB30010B588 /* OnboardingView.xib */,
-				C6024CE41E8FCDBE0010B588 /* OnboardingView.swift */,
-				C64EB9461E928ACC00DA54AE /* ArchiveListView.xib */,
-				C64EB9481E928B7300DA54AE /* ArchiveListView.swift */,
-				C63261F01E9298AC002CD9DB /* ArchiveFileView.xib */,
 				C632620E1E929B3E002CD9DB /* ArchiveFileView.swift */,
+				C63261F01E9298AC002CD9DB /* ArchiveFileView.xib */,
+				C64EB9481E928B7300DA54AE /* ArchiveListView.swift */,
+				C64EB9461E928ACC00DA54AE /* ArchiveListView.xib */,
+				C6024CE41E8FCDBE0010B588 /* OnboardingView.swift */,
+				C6024CE21E8FCDB30010B588 /* OnboardingView.xib */,
+				C6024CD61E8FBF2A0010B588 /* PreferencesView.swift */,
+				C6024CD41E8FBC450010B588 /* PreferencesView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -357,8 +375,8 @@
 		C6024CD81E8FC4C30010B588 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C6024CD91E8FC4DF0010B588 /* BorgWrapper.swift */,
 				C6B365681E8FF57500942635 /* BackupService.swift */,
+				C6024CD91E8FC4DF0010B588 /* BorgWrapper.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -379,11 +397,41 @@
 			isa = PBXGroup;
 			children = (
 				C64EB93E1E92635000DA54AE /* BackupTask.swift */,
-				C64EB9401E926BA200DA54AE /* ListTask.swift */,
-				C64EB9421E92733A00DA54AE /* BorgMachineTask.swift */,
 				C64EB9441E927D1400DA54AE /* InfoTask.swift */,
+				C64EB9401E926BA200DA54AE /* ListTask.swift */,
 			);
 			path = Tasks;
+			sourceTree = "<group>";
+		};
+		C6609B651EA9E61D007A672D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C6609B681EA9E65F007A672D /* ArchiveListRecord.swift */,
+				C688502A1EA9EB3E007CDF53 /* ArchiveRecord.swift */,
+				C6609B661EA9E63F007A672D /* FileRecord.swift */,
+				C688504F1EA9EBC0007CDF53 /* InfoArchiveRecord.swift */,
+				C688504D1EA9EBAE007CDF53 /* InfoArchiveStatsRecord.swift */,
+				C68850531EA9EC01007CDF53 /* InfoRecord.swift */,
+				C68850481EA9EB47007CDF53 /* ListRecord.swift */,
+				C68850511EA9EBE1007CDF53 /* RepositoryRecord.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C688504A1EA9EB6D007CDF53 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C688504B1EA9EB88007CDF53 /* BorgMachineTask.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C68850551EA9EC54007CDF53 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C68850561EA9EC7A007CDF53 /* BufferedStringProcess.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		C6B365291E8FE3A700942635 /* Frameworks */ = {
@@ -431,15 +479,18 @@
 		C6B969C41E8D1D1D00897A60 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C64EB9211E92632400DA54AE /* Tasks */,
-				C6024CD81E8FC4C30010B588 /* Services */,
-				C6024CD31E8FBC200010B588 /* Views */,
 				C6024CD01E8FBBD90010B588 /* Controllers */,
+				C6609B651EA9E61D007A672D /* Models */,
+				C688504A1EA9EB6D007CDF53 /* Protocols */,
+				C6024CD81E8FC4C30010B588 /* Services */,
+				C64EB9211E92632400DA54AE /* Tasks */,
+				C68850551EA9EC54007CDF53 /* Utilities */,
+				C6024CD31E8FBC200010B588 /* Views */,
+				C6B969CE1E8D1D1D00897A60 /* Info.plist */,
 				C6B969C51E8D1D1D00897A60 /* AppDelegate.swift */,
 				C6024CE01E8FC6EC0010B588 /* AppPreferences.swift */,
 				C6024CCA1E8FBB8F0010B588 /* Extensions.swift */,
 				C6B969C91E8D1D1D00897A60 /* Assets.xcassets */,
-				C6B969CE1E8D1D1D00897A60 /* Info.plist */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -774,21 +825,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6024CD71E8FBF2A0010B588 /* PreferencesView.swift in Sources */,
+				C68850521EA9EBE1007CDF53 /* RepositoryRecord.swift in Sources */,
 				C64EB9491E928B7300DA54AE /* ArchiveListView.swift in Sources */,
-				C64EB9431E92733A00DA54AE /* BorgMachineTask.swift in Sources */,
+				C6609B691EA9E65F007A672D /* ArchiveListRecord.swift in Sources */,
 				C6024CE11E8FC6EC0010B588 /* AppPreferences.swift in Sources */,
+				C6609B671EA9E63F007A672D /* FileRecord.swift in Sources */,
 				C6024CE51E8FCDBE0010B588 /* OnboardingView.swift in Sources */,
 				C6024CD21E8FBBFC0010B588 /* PreferencesController.swift in Sources */,
+				C68850501EA9EBC0007CDF53 /* InfoArchiveRecord.swift in Sources */,
+				C688504E1EA9EBAE007CDF53 /* InfoArchiveStatsRecord.swift in Sources */,
+				C68850541EA9EC01007CDF53 /* InfoRecord.swift in Sources */,
 				C6B365711E90A8AE00942635 /* SystemMenuController.swift in Sources */,
 				C6024CCB1E8FBB8F0010B588 /* Extensions.swift in Sources */,
 				C64EB94B1E928BA900DA54AE /* ArchiveListController.swift in Sources */,
 				C632620F1E929B3E002CD9DB /* ArchiveFileView.swift in Sources */,
+				C68850571EA9EC7A007CDF53 /* BufferedStringProcess.swift in Sources */,
 				C6B365691E8FF57500942635 /* BackupService.swift in Sources */,
+				C688504C1EA9EB88007CDF53 /* BorgMachineTask.swift in Sources */,
 				C6B969C61E8D1D1D00897A60 /* AppDelegate.swift in Sources */,
 				C64EB9411E926BA200DA54AE /* ListTask.swift in Sources */,
 				C6024CDA1E8FC4DF0010B588 /* BorgWrapper.swift in Sources */,
 				C63262111E929B77002CD9DB /* ArchiveFileController.swift in Sources */,
 				C6024CE71E8FD07C0010B588 /* OnboardingController.swift in Sources */,
+				C68850491EA9EB47007CDF53 /* ListRecord.swift in Sources */,
+				C688502B1EA9EB3E007CDF53 /* ArchiveRecord.swift in Sources */,
 				C64EB9451E927D1400DA54AE /* InfoTask.swift in Sources */,
 				C64EB93F1E92635000DA54AE /* BackupTask.swift in Sources */,
 			);

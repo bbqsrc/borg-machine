@@ -18,23 +18,40 @@ class SystemMenuController {
     let primaryInfoItem = NSMenuItem(title: "")
     let secondaryInfoItem = NSMenuItem(title: "")
     
+    @objc func backUpNowTapped(_ sender: NSObject) {
+        BackupService.instance.startManualBackup()
+    }
+    
+    @objc func preferencesTapped(_ sender: NSObject) {
+        DispatchQueue.main.async {
+            OnboardingController.inWindow().show(self)
+        }
+    }
+    
+    @objc func viewArchivesTapped(_ sender: NSObject) {
+        DispatchQueue.main.async {
+            ArchiveListController.inWindow().show(self)
+        }
+    }
+    
     let backupNowItem = NSMenuItem(
         title: "Back Up Now",
-        action: #selector(AppDelegate.backUpNowTapped(_:))
+        action: #selector(backUpNowTapped(_:))
     )
     
     let prefsItem = NSMenuItem(
         title: "Open Borg Machine Preferences…",
-        action: #selector(AppDelegate.preferencesTapped(_:))
+        action: #selector(preferencesTapped(_:))
     )
     
     let repoInfoItem = NSMenuItem(
         title: "View Archives…",
-        action: #selector(AppDelegate.viewArchives(_:))
+        action: #selector(viewArchivesTapped(_:))
     )
     
     let quitItem = NSMenuItem(
         title: "Quit Borg Machine",
+        target: NSApp,
         action: #selector(NSApp.terminate(_:))
     )
     
@@ -84,7 +101,13 @@ class SystemMenuController {
             quitItem
         ]
             
-        items.forEach(menu.addItem)
+        items.forEach {
+            menu.addItem($0)
+            if $0.target == nil {
+                $0.target = self
+            }
+        }
+        
         statusItem.menu = menu
         
         BackupService.instance.state.asObservable()

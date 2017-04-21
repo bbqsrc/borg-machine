@@ -8,165 +8,21 @@
 
 import Cocoa
 
-struct FileRecord {
-    let flags: String?
-    let gid: Int32
-    let group: String
-    let healthy: Bool
-    let isomtime: String
-    let linktarget: String
-    let mode: String
-    let path: String
-    let size: UIntMax
-    let source: String
-    let nodeType: String
-    let uid: Int32
-    let user: String
-}
-
-struct ArchiveListRecord {
-    let items: [FileRecord]
-    
-    init?(json data: [String: Any]) {
-        guard let items = data["items"] as? [[String: Any]] else { return nil }
-        
-        self.items = items.flatMap { x in
-            guard let gid = x["gid"] as? Int32,
-                let group = x["group"] as? String,
-                let healthy = x["healthy"] as? Bool,
-                let isomtime = x["isomtime"] as? String,
-                let linktarget = x["linktarget"] as? String,
-                let mode = x["mode"] as? String,
-                let path = x["path"] as? String,
-                let size = x["size"] as? UIntMax,
-                let source = x["source"] as? String,
-                let nodeType = x["type"] as? String,
-                let uid = x["uid"] as? Int32,
-                let user = x["user"] as? String else {
-                    return nil
-            }
-            
-            return FileRecord(flags: x["flags"] as? String, gid: gid, group: group, healthy: healthy, isomtime: isomtime, linktarget: linktarget, mode: mode, path: path, size: size, source: source, nodeType: nodeType, uid: uid, user: user)
-        }
-    }
-}
-
-class Node<T>: CustomDebugStringConvertible {
-    fileprivate(set) var baseName: String
-    fileprivate(set) var value: T? = nil
-    private(set) var children = [String: Node<T>]()
-    private(set) var order = [Node<T>]()
-    
-    weak var parent: Node<T>? = nil
-    
-    init(_ value: T?, name: String, parent: Node<T>?) {
-        self.baseName = name
-        self.value = value
-        self.parent = parent
-    }
-    
-    var name: String {
-        var chunks = [baseName]
-        
-        var cur = parent
-        
-        while let p = cur, let parent = p.parent {
-            if p.value != nil || p.baseName == "/" || parent.logicalChildren.contains(where: { $0 === p }) {
-                break
-            }
-            
-            chunks.append(p.baseName)
-            cur = parent
-        }
-        
-        return chunks.reversed().joined(separator: "/")
-    }
-    
-    private var firstValued: Node<T>? {
-        // If has a value in and of itself, is a valid leaf
-        if self.value != nil {
-            return self
-        }
-        
-        // If have more than 1 child, is a valid junction
-        if order.count > 1 {
-            return self
-        }
-        
-        // Only one child, continue the dance
-        if order.count == 1 {
-            return self.order[0].firstValued
-        }
-        
-        print("\(self)")
-        return nil
-    }
-    
-    lazy var logicalChildren: [Node<T>] = {
-        return self.order.flatMap { $0.firstValued }
-    }()
-    
-    subscript(path: String) -> Node<T>? {
-        get {
-            return children[path]
-        }
-        set {
-            if let v = newValue {
-                children[path] = v
-                order.append(v)
-            } else if let v = children.removeValue(forKey: path) {
-                if let i = order.index(where: { $0 === v }) {
-                    order.remove(at: i)
-                }
-            }
-        }
-    }
-    
-    subscript(_ value: Int) -> Node<T>? {
-        get {
-            return order[value]
-        }
-    }
-    
-    var count: Int {
-        return children.count
-    }
-    
-    var debugDescription: String {
-        return "(\(value as Any), \(children))"
-    }
-}
-
-func parseNodes(_ archive: ArchiveListRecord) -> Node<FileRecord> {
-    let root = Node<FileRecord>(nil, name: "/", parent: nil)
-    
-    for item in archive.items {
-        let components = item.path.components(separatedBy: "/")
-        
-        var cur = root
-        
-        for c in components {
-            if cur[c] == nil {
-                cur[c] = Node(nil, name: c, parent: cur)
-            }
-            
-            cur = cur[c]!
-        }
-        
-        cur.value = item
-    }
-    
-    assert(root.order.count == root.children.count)
-    
-    return root
-}
-
 class ArchiveFileController: ViewController<ArchiveFileView>, NSOutlineViewDelegate, NSOutlineViewDataSource {
-    let archive: ArchiveListRecord
-    let tree: Node<FileRecord>
-    let info: InfoArchiveRecord
+    private let archive: ArchiveListRecord
+    private let tree: Node<FileRecord>
+    private let info: InfoArchiveRecord
     
     let borg = BorgWrapper(preferences: AppPreferences)!
+    
+    static func inWindow(info: InfoArchiveRecord, archive: ArchiveListRecord) -> NSWindowController {
+        let window = NSWindow(contentViewController: ArchiveFileController(info: info, archive: archive))
+        let ctrl = NSWindowController(window: window)
+        
+        window.title = info.name
+        
+        return ctrl
+    }
     
     init(info: InfoArchiveRecord, archive: ArchiveListRecord) {
         self.info = info
@@ -291,4 +147,112 @@ class ArchiveFileController: ViewController<ArchiveFileView>, NSOutlineViewDeleg
         
         return cell
     }
+}
+
+fileprivate class Node<T>: CustomDebugStringConvertible {
+    fileprivate(set) var baseName: String
+    fileprivate(set) var value: T? = nil
+    private(set) var children = [String: Node<T>]()
+    private(set) var order = [Node<T>]()
+    
+    weak var parent: Node<T>? = nil
+    
+    init(_ value: T?, name: String, parent: Node<T>?) {
+        self.baseName = name
+        self.value = value
+        self.parent = parent
+    }
+    
+    var name: String {
+        var chunks = [baseName]
+        
+        var cur = parent
+        
+        while let p = cur, let parent = p.parent {
+            if p.value != nil || p.baseName == "/" || parent.logicalChildren.contains(where: { $0 === p }) {
+                break
+            }
+            
+            chunks.append(p.baseName)
+            cur = parent
+        }
+        
+        return chunks.reversed().joined(separator: "/")
+    }
+    
+    private var firstValued: Node<T>? {
+        // If has a value in and of itself, is a valid leaf
+        if self.value != nil {
+            return self
+        }
+        
+        // If have more than 1 child, is a valid junction
+        if order.count > 1 {
+            return self
+        }
+        
+        // Only one child, continue the dance
+        if order.count == 1 {
+            return self.order[0].firstValued
+        }
+        
+        print("\(self)")
+        return nil
+    }
+    
+    lazy var logicalChildren: [Node<T>] = {
+        return self.order.flatMap { $0.firstValued }
+    }()
+    
+    subscript(path: String) -> Node<T>? {
+        get {
+            return children[path]
+        }
+        set {
+            if let v = newValue {
+                children[path] = v
+                order.append(v)
+            } else if let v = children.removeValue(forKey: path) {
+                if let i = order.index(where: { $0 === v }) {
+                    order.remove(at: i)
+                }
+            }
+        }
+    }
+    
+    subscript(_ value: Int) -> Node<T>? {
+        get {
+            return order[value]
+        }
+    }
+    
+    var count: Int {
+        return children.count
+    }
+    
+    var debugDescription: String {
+        return "(\(value as Any), \(children))"
+    }
+}
+
+fileprivate func parseNodes(_ archive: ArchiveListRecord) -> Node<FileRecord> {
+    let root = Node<FileRecord>(nil, name: "/", parent: nil)
+    
+    for item in archive.items {
+        let components = item.path.components(separatedBy: "/")
+        
+        var cur = root
+        
+        for c in components {
+            if cur[c] == nil {
+                cur[c] = Node(nil, name: c, parent: cur)
+            }
+            
+            cur = cur[c]!
+        }
+        
+        cur.value = item
+    }
+    
+    return root
 }

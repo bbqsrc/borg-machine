@@ -17,6 +17,15 @@ class ArchiveListController: ViewController<ArchiveListView>, NSTableViewDelegat
     var bag = DisposeBag()
     let viewModel = ArchiveListViewModel()
     
+    static func inWindow() -> NSWindowController {
+        let window = NSWindow(contentViewController: ArchiveListController())
+        let ctrl = NSWindowController(window: window)
+        
+        window.title = "Backup Archives"
+        
+        return ctrl
+    }
+    
     override func viewDidLoad() {
         InfoTask(all: true).start(onProgress: { [weak self] in
             self?.viewModel.listRecord.value = $0
@@ -26,21 +35,12 @@ class ArchiveListController: ViewController<ArchiveListView>, NSTableViewDelegat
     var window: NSWindow? = nil
     
     func onDoubleTapRow(_ sender: NSTableView) {
-        guard let archive = viewModel.listRecord.value?.archives[sender.clickedRow] else { return }
+        guard let info = viewModel.listRecord.value?.archives[sender.clickedRow] else { return }
         
-        ListTask(archive: archive.name).start(onProgress: { [weak self] record in
+        ListTask(archive: info.name).start(onProgress: { [weak self] archive in
             guard let `self` = self else { return }
             
-            let window = NSWindow(contentViewController: ArchiveFileController(info: archive, archive: record))
-            let ctrl = NSWindowController(window: window)
-            
-            window.title = archive.name
-            
-            self.window = window
-            
-            ctrl.showWindow(self)
-            window.makeKeyAndOrderFront(self)
-            NSApp.activate(ignoringOtherApps: true)
+            ArchiveFileController.inWindow(info: info, archive: archive).show(self)
         })
     }
     
