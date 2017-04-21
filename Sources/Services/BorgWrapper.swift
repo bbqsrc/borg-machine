@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import Mapper
 
 class BorgWrapper {
     static let binPath = Bundle.main.path(forAuxiliaryExecutable: "borg")!
@@ -44,7 +45,7 @@ class BorgWrapper {
             "init", "--log-json",
             "-e", encryption.rawValue,
             repoPath
-            ], env: env)
+        ], env: env)
         
         process.onLogOutput = { line in
             guard let json = JSONSerialization.jsonDict(with: line.data(using: .utf8)!) else {
@@ -58,14 +59,13 @@ class BorgWrapper {
                         process.write(string: questionPrompt(message: json["message"] as? String ?? ""))
                     }
                 case "log_message":
-                    BorgLogMessage(json: json).showAlert()
+                    BorgLogMessage.from(json)?.showAlert()
                 default:
                     break
                 }
             }
         }
-        
-        process.launch()
+    
         return process
     }
     
@@ -187,21 +187,27 @@ fileprivate func questionPrompt(message: String) -> String {
     }
 }
 
-fileprivate class BorgLogMessage {
-    let json: [String: Any]
+enum BorgErrorLevel: String {
+    case debug = "DEBUG"
+    case info = "INFO"
+    case error = "ERROR"
+    case warning = "WARNING"
+    case critical = "CRITICAL"
+}
+
+fileprivate struct BorgLogMessage: Mappable {
+    let name: String
+    let msgid: String
+    let level: BorgErrorLevel
+    let message: String
     
-    var level: String {
-        return json["levelname"] as? String ?? "INFO"
-    }
-    
-    var message: String {
-        let base = json["message"] as? String ?? ""
+    init(map: Mapper) throws {
+        try name = map.from("name")
+        try msgid = map.from("msgid")
+        level = map.optionalFrom("levelname") ?? .info
         
-        return base.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-    
-    init(json: [String: Any]) {
-        self.json = json
+        let message = map.optionalFrom("message") ?? ""
+        self.message = message.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func showAlert() {
@@ -209,10 +215,10 @@ fileprivate class BorgLogMessage {
             let alert = NSAlert()
             
             switch self.level {
-            case "ERROR":
+            case .error, .critical:
                 alert.alertStyle = .critical
                 alert.messageText = "Borg Machine — Error"
-            case "WARNING":
+            case .warning:
                 alert.alertStyle = .warning
                 alert.messageText = "Borg Machine — Warning"
             default:

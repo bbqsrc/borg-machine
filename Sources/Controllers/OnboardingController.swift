@@ -98,6 +98,7 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
         DispatchQueue.global(qos: .background).async {
             let task = BorgWrapper(preferences: AppPreferences)!.initialize()
             
+            task.launch()
             task.waitUntilExit()
         }
     }
