@@ -65,7 +65,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    private func singleInstanceCheck() {
+        let id = Bundle.main.bundleIdentifier!
+        let apps = NSWorkspace.shared().runningApplications.filter({ $0.bundleIdentifier == id })
+        
+        if apps.count > 1 {
+            let alert = NSAlert()
+            alert.messageText = "Borg Machine is already running."
+            alert.runModal()
+            
+            NSApp.terminate(self)
+        }
+    }
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
+        singleInstanceCheck()
+        
         AppDelegate.instance = self
         NSUserNotificationCenter.default.delegate = self
         
