@@ -76,6 +76,9 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.styleMask = [.closable, .titled]
+        if #available(OSX 10.12, *) {
+            window.tabbingMode = .disallowed
+        }
         
         return ctrl
     }

@@ -20,6 +20,9 @@ class ArchiveFileController: ViewController<ArchiveFileView>, NSOutlineViewDeleg
         let ctrl = NSWindowController(window: window)
         
         window.title = info.name
+        if #available(OSX 10.12, *) {
+            window.tabbingMode = .disallowed
+        }
         
         return ctrl
     }

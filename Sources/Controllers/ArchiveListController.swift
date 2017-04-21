@@ -29,6 +29,9 @@ class ArchiveListController: ViewController<ArchiveListView>, NSTableViewDelegat
         self.window = window
         
         window.title = "Backup Archives"
+        if #available(OSX 10.12, *) {
+            window.tabbingMode = .disallowed
+        }
         
         return ctrl
     }
