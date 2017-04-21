@@ -9,10 +9,12 @@
 import Cocoa
 
 class BackupTask: BorgMachineTask {
-    typealias T = String
+    typealias T = (String, String?)
     
     var state: TaskState = .notStarted
     let task: BufferedStringSubprocess
+    let fileCount: Int64
+    var currentPercent: String = "0.00%"
     
     static func manual(paths: [String]) -> BackupTask {
         let archiveName = "BorgMachine-Manual-\(Date().iso8601String())"
@@ -25,6 +27,11 @@ class BackupTask: BorgMachineTask {
     
     init(archive archiveName: String, paths targetPaths: [String], preferences: _AppPreferences = AppPreferences) {
         let borg = BorgWrapper(preferences: preferences)!
+        
+        fileCount = try! targetPaths
+            .map({ URL(string: $0)! })
+            .map(FileManager.default.countFilesRecursive(at:))
+            .reduce(0, { $0 + $1 })
         
         task = borg.create(
             archive: archiveName,
@@ -52,33 +59,42 @@ class BackupTask: BorgMachineTask {
             n.actionButtonTitle = "More Info"
             
             NSUserNotificationCenter.default.scheduleNotification(n)
-            
-            //NSUserNotificationCenter.default.deliver(n)
         }
     }
     
-    private func parseMessage(json: [String: Any]) -> String? {
-        guard let type = json["type"] as? String else { return nil }
+    private func parseMessage(json: [String: Any]) -> (String, String?) {
+        guard let type = json["type"] as? String else {
+            return (currentPercent, nil)
+        }
+        
+        let msg: String?
         
         switch type {
         case "archive_progress":
             if let path = json["path"] as? String, path != "" {
-                return "File: \(path)"
+                msg = "File: \(path)"
             } else {
-                return "Archiving…"
+                msg = "Archiving…"
             }
         default:
-            return json["message"] as? String
+            msg = json["message"] as? String
         }
+        
+        if let nfiles = json["nfiles"] as? Int64 {
+            let pc = (Double(nfiles) / Double(fileCount)) * 100.0
+            currentPercent = String(format: "%.2f%%", pc)
+        }
+        
+        return (currentPercent, msg)
     }
     
-    func run(onProgress: @escaping (String) -> ()) {
+    func run(onProgress: @escaping (String, String?) -> ()) {
         task.onLogOutput = { [weak self] line in
             guard let json = JSONSerialization.jsonDict(with: line.data(using: .utf8)!) else { return }
             guard let msg = self?.parseMessage(json: json) else { return }
             
             DispatchQueue.main.async {
-                onProgress(msg)
+                onProgress(msg.0, msg.1)
             }
         }
         

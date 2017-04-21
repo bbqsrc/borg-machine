@@ -11,7 +11,7 @@ import RxSwift
 
 enum BackupState {
     case cancellingBackup
-    case backingUp(info: String?)
+    case backingUp(percent: String, info: String?)
     case idleWithHistory(repository: String, time: String)
     case noConfiguration
 }
@@ -48,7 +48,7 @@ class BackupService {
         
         currentBackupTask?.start(
             onProgress: { [weak self] msg in
-                self?.state.value = .backingUp(info: msg)
+                self?.state.value = .backingUp(percent: msg.0, info: msg.1)
             },
             onExit: { [weak self] in
                 self?.idleState()

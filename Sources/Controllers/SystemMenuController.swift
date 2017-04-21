@@ -60,9 +60,9 @@ class SystemMenuController {
         backupNowItem.title = "Back Up Now"
         
         switch state {
-        case let .backingUp(info):
+        case let .backingUp(percent, info):
             backupNowItem.title = "Cancel This Backup"
-            primaryInfoItem.title = "Backing Up…"
+            primaryInfoItem.title = "Backing Up… \(percent)"
             secondaryInfoItem.isHidden = info == nil
 
             if let info = info {

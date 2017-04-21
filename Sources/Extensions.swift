@@ -138,6 +138,44 @@ extension FileManager {
         
         return accumulatedSize
     }
+    
+    func countFilesRecursive(at directoryURL: URL) throws -> Int64 {
+        var count = Int64(0)
+        
+        let prefetchedProperties: [URLResourceKey] = [.isRegularFileKey]
+        
+        var errorDidOccur: Error?
+        let errorHandler: (URL, Error) -> Bool = { _, error in
+            errorDidOccur = error
+            return false
+        }
+        
+        let enumerator = self.enumerator(
+            at: directoryURL,
+            includingPropertiesForKeys: prefetchedProperties,
+            options: [],
+            errorHandler: errorHandler)!
+        
+        for item in enumerator {
+            let contentItemURL = item as! URL
+            
+            if let error = errorDidOccur { throw error }
+            
+            guard let isRegularFile = try contentItemURL.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile else {
+                preconditionFailure()
+            }
+            
+            guard isRegularFile else {
+                continue
+            }
+            
+            count += 1
+        }
+        
+        if let error = errorDidOccur { throw error }
+        
+        return count
+    }
 }
 
 extension NSWindowController {
