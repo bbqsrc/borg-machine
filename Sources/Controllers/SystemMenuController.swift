@@ -29,8 +29,13 @@ class SystemMenuController {
     )
     
     let repoInfoItem = NSMenuItem(
-        title: "View Archives",
+        title: "View Archives…",
         action: #selector(AppDelegate.viewArchives(_:))
+    )
+    
+    let quitItem = NSMenuItem(
+        title: "Quit Borg Machine",
+        action: #selector(NSApp.terminate(_:))
     )
     
     func onStateChange(_ state: BackupState) {
@@ -67,14 +72,16 @@ class SystemMenuController {
         let image = NSImage(named: "backupIcon")!
         statusItem.image = image
         
-        let items = [
+        let items: [NSMenuItem] = [
             primaryInfoItem,
             secondaryInfoItem,
-            NSMenuItem.separator(),
+            .separator(),
             backupNowItem,
             repoInfoItem,
-            NSMenuItem.separator(),
-            prefsItem
+            .separator(),
+            prefsItem,
+            .separator(),
+            quitItem
         ]
             
         items.forEach(menu.addItem)
