@@ -75,6 +75,7 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
         
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
+        window.styleMask = [.closable, .titled]
         
         return ctrl
     }
