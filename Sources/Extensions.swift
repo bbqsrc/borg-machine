@@ -41,16 +41,18 @@ extension NSMenuItem {
 
 protocol Nibbable {}
 
-extension Nibbable where Self: NSView {
+extension Nibbable where Self: NSUserInterfaceItemIdentification {
     static var nibName: String {
         return String(describing: self)
     }
     
-    static func loadFromNib() -> Self {
+    static func loadFromNib(named nibName: String? = nil) -> Self {
         let bundle = Bundle(for: Self.self)
         
         var views = NSArray()
-        bundle.loadNibNamed(nibName, owner: Self.self, topLevelObjects: &views)
+        if let nib = NSNib(nibNamed: nibName ?? Self.nibName, bundle: bundle) {
+            nib.instantiate(withOwner: nil, topLevelObjects: &views)
+        }
         
         guard let view = views.first(where: { $0 is Self }) as? Self else {
             fatalError("Nib could not be loaded for nibName: \(self.nibName); check that the XIB owner has been set to the given view: \(self)")
@@ -59,6 +61,8 @@ extension Nibbable where Self: NSView {
         return view
     }
 }
+
+extension NSMenu: Nibbable {}
 
 class ViewController<T: NSView>: NSViewController where T: Nibbable {
     let contentView = T.loadFromNib()
@@ -86,7 +90,6 @@ extension Date {
         return formatter.string(from: self)
     }
 }
-
 
 extension FileManager {
     // http://stackoverflow.com/a/28660040
@@ -117,7 +120,7 @@ extension FileManager {
             
             if let error = errorDidOccur { throw error }
             
-            guard let isRegularFile = try contentItemURL.resourceValues(forKeys: [URLResourceKey.isRegularFileKey]).isRegularFile else {
+            guard let isRegularFile = try contentItemURL.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile else {
                 preconditionFailure()
             }
             
@@ -143,11 +146,11 @@ extension NSWindowController {
     func show(_ sender: Any) {
         guard let window = window else { return }
         
+        WindowWatcher.hold(window)
+        
         self.showWindow(sender)
         window.makeKeyAndOrderFront(sender)
         NSApp.activate(ignoringOtherApps: true)
-        
-        objc_setAssociatedObject(sender, NSWindowController.windowKey, window, .OBJC_ASSOCIATION_RETAIN)
     }
 }
 

@@ -15,11 +15,18 @@ class ArchiveListViewModel {
 
 class ArchiveListController: ViewController<ArchiveListView>, NSTableViewDelegate, NSTableViewDataSource {
     var bag = DisposeBag()
+    static private weak var window: NSWindow? = nil
+    
     let viewModel = ArchiveListViewModel()
     
     static func inWindow() -> NSWindowController {
+        if let w = self.window {
+            WindowWatcher.release(w)
+        }
+        
         let window = NSWindow(contentViewController: ArchiveListController())
         let ctrl = NSWindowController(window: window)
+        self.window = window
         
         window.title = "Backup Archives"
         
@@ -32,7 +39,21 @@ class ArchiveListController: ViewController<ArchiveListView>, NSTableViewDelegat
         })
     }
     
-    var window: NSWindow? = nil
+    override func viewWillAppear() {
+        viewModel.listRecord.asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                self?.contentView.tableView.reloadData()
+            }) => bag
+        
+        contentView.tableView.delegate = self
+        contentView.tableView.dataSource = self
+        
+        contentView.tableView.doubleAction = #selector(ArchiveListController.onDoubleTapRow(_:))
+    }
+    
+    override func viewWillDisappear() {
+        bag = DisposeBag()
+    }
     
     func onDoubleTapRow(_ sender: NSTableView) {
         guard let info = viewModel.listRecord.value?.archives[sender.clickedRow] else { return }
@@ -42,22 +63,6 @@ class ArchiveListController: ViewController<ArchiveListView>, NSTableViewDelegat
             
             ArchiveFileController.inWindow(info: info, archive: archive).show(self)
         })
-    }
-    
-    override func viewWillAppear() {
-        viewModel.listRecord.asObservable()
-            .subscribe(onNext: { [weak self] _ in
-                self?.contentView.tableView.reloadData()
-            }) => bag
-        
-        contentView.tableView.delegate = self
-        contentView.tableView.dataSource = self
-    
-        contentView.tableView.doubleAction = #selector(ArchiveListController.onDoubleTapRow(_:))
-    }
-    
-    override func viewWillDisappear() {
-        bag = DisposeBag()
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {

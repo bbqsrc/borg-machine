@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import RxSwift
 
 enum BorgNotifications: String {
     case backupCompleted = "BorgMachine.BackupCompleted"
@@ -14,16 +15,12 @@ enum BorgNotifications: String {
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    let bag = DisposeBag()
+    
     static weak var instance: AppDelegate!
     
     var window: NSWindow? = nil
     var systemMenuController: SystemMenuController!
-    
-    func showSummaryAlert(_ data: [String: Any]) {
-        let alert = NSAlert()
-        alert.informativeText = "\(data)"
-        alert.runModal()
-    }
     
     private func singleInstanceCheck() {
         let id = Bundle.main.bundleIdentifier!
@@ -44,6 +41,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppDelegate.instance = self
         NSUserNotificationCenter.default.delegate = self
         
+        NSApp.mainMenu = NSMenu.loadFromNib(named: "MainMenu")
+        
+        WindowWatcher.onWindowsChanged = { NSApp.setActivationPolicy($0.isEmpty ? .accessory : .regular) }
+        
         // Wake up services
         _ = BackupService.instance
         
@@ -62,6 +63,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: NSUserNotificationCenter, didDeliver notification: NSUserNotification) {
         // print(notification)
+    }
+    
+    private func showSummaryAlert(_ data: [String: Any]) {
+        let alert = NSAlert()
+        alert.informativeText = "\(data)"
+        alert.runModal()
     }
     
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
