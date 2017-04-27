@@ -275,6 +275,18 @@ class OnboardingController: ViewController<OnboardingView>, NSPopoverDelegate {
         
     }
     
+    func scheduleRemoveButtonTapped(_ sender: NSObject) {
+        let indexes = contentView.scheduleTableView.selectedRowIndexes
+        var rules = viewModel.scheduleRules.value
+        
+        indexes.reversed().forEach {
+            rules.remove(at: $0)
+        }
+        
+        viewModel.scheduleRules.value = rules
+    }
+
+    
     func popoverDidClose(_ notification: Notification) {
         schedulePopup = nil
     }
@@ -310,6 +322,8 @@ class OnboardingController: ViewController<OnboardingView>, NSPopoverDelegate {
             #selector(OnboardingController.targetRemoveButtonTapped(_:))
         contentView.scheduleAddButton.action =
             #selector(OnboardingController.scheduleAddButtonTapped(_:))
+        contentView.scheduleRemoveButton.action =
+            #selector(OnboardingController.scheduleRemoveButtonTapped(_:))
         
         viewModel.repositoryPath.asObservable()
             .bindTo(contentView.repositoryPathField.rx.text) => bag
