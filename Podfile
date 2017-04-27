@@ -5,4 +5,5 @@ target 'BorgMachine' do
   pod 'RxSwift', '~> 3.4'
   pod 'RxOptional', '~> 3'
   pod 'ModelMapper'
+  pod 'Wrap'
 end

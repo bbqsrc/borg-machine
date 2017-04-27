@@ -12,13 +12,13 @@ class InfoTask: BorgMachineTask {
     let task: BufferedStringSubprocess
     var state: TaskState = .notStarted
     
-    init(archive: String? = nil, preferences: _AppPreferences = AppPreferences) {
+    init(archive: String? = nil, preferences: AppPreferencesImpl = AppPreferences) {
         let borg = BorgWrapper(preferences: preferences)!
         
         task = borg.info(archive: archive)
     }
     
-    init(all: Bool, preferences: _AppPreferences = AppPreferences) {
+    init(all: Bool, preferences: AppPreferencesImpl = AppPreferences) {
         let borg = BorgWrapper(preferences: preferences)!
         
         task = borg.info(all: all)

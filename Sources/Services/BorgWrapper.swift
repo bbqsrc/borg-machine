@@ -21,9 +21,9 @@ class BorgWrapper {
         self.passphrase = passphrase
     }
     
-    init?(preferences: _AppPreferences) {
-        guard let path = preferences.main.repositoryPath,
-            let passphrase = preferences.main.passphrase else {
+    init?(preferences: AppPreferencesImpl) {
+        guard let path = preferences.main.value.repositoryPath,
+            let passphrase = preferences.main.value.passphrase else {
                 return nil
         }
         

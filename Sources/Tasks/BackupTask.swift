@@ -17,7 +17,7 @@ class BackupTask: BorgMachineTask {
     var currentPercent: String = "0.00%"
     
     static func manual(paths: [String]) -> BackupTask {
-        let archiveName = "BorgMachine-Manual-\(Date().iso8601String())"
+        let archiveName = "BM-M-\(Date().iso8601String())"
         
         return BackupTask(
             archive: archiveName,
@@ -25,7 +25,16 @@ class BackupTask: BorgMachineTask {
         )
     }
     
-    init(archive archiveName: String, paths targetPaths: [String], preferences: _AppPreferences = AppPreferences) {
+    static func scheduled(paths: [String], date: Date, rule: RecurrenceRule) -> BackupTask {
+        let archiveName = "BM-S\(rule.frequency.shortCode)-\(date.iso8601String())"
+        
+        return BackupTask(
+            archive: archiveName,
+            paths: paths
+        )
+    }
+    
+    init(archive archiveName: String, paths targetPaths: [String], preferences: AppPreferencesImpl = AppPreferences) {
         let borg = BorgWrapper(preferences: preferences)!
         
         fileCount = try! targetPaths

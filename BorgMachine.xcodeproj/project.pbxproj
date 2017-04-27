@@ -28,6 +28,8 @@
 		C64EB94B1E928BA900DA54AE /* ArchiveListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB94A1E928BA900DA54AE /* ArchiveListController.swift */; };
 		C6609B671EA9E63F007A672D /* FileRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6609B661EA9E63F007A672D /* FileRecord.swift */; };
 		C6609B691EA9E65F007A672D /* ArchiveListRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6609B681EA9E65F007A672D /* ArchiveListRecord.swift */; };
+		C670943E1EB23A3B00C56C9F /* ScheduleModalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C670943D1EB23A3B00C56C9F /* ScheduleModalView.xib */; };
+		C67094401EB23CD600C56C9F /* ScheduleModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C670943F1EB23CD600C56C9F /* ScheduleModalView.swift */; };
 		C6795DC01E8FDAE000B079F9 /* borg in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6BB35BB1E8FD7C3002FFCBB /* borg */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C688502B1EA9EB3E007CDF53 /* ArchiveRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688502A1EA9EB3E007CDF53 /* ArchiveRecord.swift */; };
 		C68850491EA9EB47007CDF53 /* ListRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68850481EA9EB47007CDF53 /* ListRecord.swift */; };
@@ -39,10 +41,14 @@
 		C68850571EA9EC7A007CDF53 /* BufferedStringProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68850561EA9EC7A007CDF53 /* BufferedStringProcess.swift */; };
 		C68850791EAA32BB007CDF53 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C68850781EAA32BB007CDF53 /* MainMenu.xib */; };
 		C688507B1EAA4B10007CDF53 /* WindowWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688507A1EAA4B10007CDF53 /* WindowWatcher.swift */; };
+		C688508B1EAAF34F007CDF53 /* RecurringDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688508A1EAAF34F007CDF53 /* RecurringDate.swift */; };
 		C6B365691E8FF57500942635 /* BackupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B365681E8FF57500942635 /* BackupService.swift */; };
 		C6B365711E90A8AE00942635 /* SystemMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B365701E90A8AE00942635 /* SystemMenuController.swift */; };
 		C6B969C61E8D1D1D00897A60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B969C51E8D1D1D00897A60 /* AppDelegate.swift */; };
 		C6B969CA1E8D1D1D00897A60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6B969C91E8D1D1D00897A60 /* Assets.xcassets */; };
+		C6C7BD481EAF4431007E6785 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C7BD471EAF4431007E6785 /* Scheduler.swift */; };
+		C6C7BD4A1EAF54E1007E6785 /* ScheduleRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C7BD491EAF54E1007E6785 /* ScheduleRule.swift */; };
+		C6C7BD4C1EAF5512007E6785 /* MainPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C7BD4B1EAF5512007E6785 /* MainPreferences.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,7 +71,7 @@
 		C6024CD11E8FBBFC0010B588 /* PreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
 		C6024CD41E8FBC450010B588 /* PreferencesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesView.xib; sourceTree = "<group>"; };
 		C6024CD61E8FBF2A0010B588 /* PreferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
-		C6024CD91E8FC4DF0010B588 /* BorgWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorgWrapper.swift; sourceTree = "<group>"; };
+		C6024CD91E8FC4DF0010B588 /* BorgWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BorgWrapper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C6024CE01E8FC6EC0010B588 /* AppPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
 		C6024CE21E8FCDB30010B588 /* OnboardingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
 		C6024CE41E8FCDBE0010B588 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -73,14 +79,16 @@
 		C63261F01E9298AC002CD9DB /* ArchiveFileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArchiveFileView.xib; sourceTree = "<group>"; };
 		C632620E1E929B3E002CD9DB /* ArchiveFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveFileView.swift; sourceTree = "<group>"; };
 		C63262101E929B77002CD9DB /* ArchiveFileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveFileController.swift; sourceTree = "<group>"; };
-		C64EB93E1E92635000DA54AE /* BackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupTask.swift; sourceTree = "<group>"; };
-		C64EB9401E926BA200DA54AE /* ListTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTask.swift; sourceTree = "<group>"; };
+		C64EB93E1E92635000DA54AE /* BackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BackupTask.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C64EB9401E926BA200DA54AE /* ListTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ListTask.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C64EB9441E927D1400DA54AE /* InfoTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTask.swift; sourceTree = "<group>"; };
 		C64EB9461E928ACC00DA54AE /* ArchiveListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArchiveListView.xib; sourceTree = "<group>"; };
 		C64EB9481E928B7300DA54AE /* ArchiveListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveListView.swift; sourceTree = "<group>"; };
 		C64EB94A1E928BA900DA54AE /* ArchiveListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveListController.swift; sourceTree = "<group>"; };
 		C6609B661EA9E63F007A672D /* FileRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileRecord.swift; sourceTree = "<group>"; };
 		C6609B681EA9E65F007A672D /* ArchiveListRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveListRecord.swift; sourceTree = "<group>"; };
+		C670943D1EB23A3B00C56C9F /* ScheduleModalView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleModalView.xib; sourceTree = "<group>"; };
+		C670943F1EB23CD600C56C9F /* ScheduleModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleModalView.swift; sourceTree = "<group>"; };
 		C688502A1EA9EB3E007CDF53 /* ArchiveRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveRecord.swift; sourceTree = "<group>"; };
 		C68850481EA9EB47007CDF53 /* ListRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRecord.swift; sourceTree = "<group>"; };
 		C688504B1EA9EB88007CDF53 /* BorgMachineTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorgMachineTask.swift; sourceTree = "<group>"; };
@@ -91,6 +99,7 @@
 		C68850561EA9EC7A007CDF53 /* BufferedStringProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferedStringProcess.swift; sourceTree = "<group>"; };
 		C68850781EAA32BB007CDF53 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		C688507A1EAA4B10007CDF53 /* WindowWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowWatcher.swift; sourceTree = "<group>"; };
+		C688508A1EAAF34F007CDF53 /* RecurringDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringDate.swift; sourceTree = "<group>"; };
 		C6B3652A1E8FE3A700942635 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Dependencies/RxSwift/build/Debug/RxCocoa.framework; sourceTree = "<group>"; };
 		C6B3652B1E8FE3A700942635 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Dependencies/RxSwift/build/Debug/RxSwift.framework; sourceTree = "<group>"; };
 		C6B365681E8FF57500942635 /* BackupService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupService.swift; sourceTree = "<group>"; };
@@ -100,6 +109,9 @@
 		C6B969C91E8D1D1D00897A60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C6B969CE1E8D1D1D00897A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6BB35BB1E8FD7C3002FFCBB /* borg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = borg; sourceTree = "<group>"; };
+		C6C7BD471EAF4431007E6785 /* Scheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
+		C6C7BD491EAF54E1007E6785 /* ScheduleRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleRule.swift; sourceTree = "<group>"; };
+		C6C7BD4B1EAF5512007E6785 /* MainPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPreferences.swift; sourceTree = "<group>"; };
 		CE7C2C05E10349FE679FCB02 /* Pods-BorgMachine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BorgMachine.release.xcconfig"; path = "Pods/Target Support Files/Pods-BorgMachine/Pods-BorgMachine.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,11 +146,13 @@
 				C63261F01E9298AC002CD9DB /* ArchiveFileView.xib */,
 				C64EB9481E928B7300DA54AE /* ArchiveListView.swift */,
 				C64EB9461E928ACC00DA54AE /* ArchiveListView.xib */,
+				C68850781EAA32BB007CDF53 /* MainMenu.xib */,
 				C6024CE41E8FCDBE0010B588 /* OnboardingView.swift */,
 				C6024CE21E8FCDB30010B588 /* OnboardingView.xib */,
 				C6024CD61E8FBF2A0010B588 /* PreferencesView.swift */,
 				C6024CD41E8FBC450010B588 /* PreferencesView.xib */,
-				C68850781EAA32BB007CDF53 /* MainMenu.xib */,
+				C670943D1EB23A3B00C56C9F /* ScheduleModalView.xib */,
+				C670943F1EB23CD600C56C9F /* ScheduleModalView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,6 +195,8 @@
 				C68850531EA9EC01007CDF53 /* InfoRecord.swift */,
 				C68850481EA9EB47007CDF53 /* ListRecord.swift */,
 				C68850511EA9EBE1007CDF53 /* RepositoryRecord.swift */,
+				C6C7BD491EAF54E1007E6785 /* ScheduleRule.swift */,
+				C6C7BD4B1EAF5512007E6785 /* MainPreferences.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -198,6 +214,8 @@
 			children = (
 				C68850561EA9EC7A007CDF53 /* BufferedStringProcess.swift */,
 				C688507A1EAA4B10007CDF53 /* WindowWatcher.swift */,
+				C688508A1EAAF34F007CDF53 /* RecurringDate.swift */,
+				C6C7BD471EAF4431007E6785 /* Scheduler.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -331,6 +349,7 @@
 			files = (
 				C6B969CA1E8D1D1D00897A60 /* Assets.xcassets in Resources */,
 				C64EB9471E928ACC00DA54AE /* ArchiveListView.xib in Resources */,
+				C670943E1EB23A3B00C56C9F /* ScheduleModalView.xib in Resources */,
 				C6024CD51E8FBC450010B588 /* PreferencesView.xib in Resources */,
 				C6024CE31E8FCDB30010B588 /* OnboardingView.xib in Resources */,
 				C63261F11E9298AC002CD9DB /* ArchiveFileView.xib in Resources */,
@@ -396,19 +415,23 @@
 				C6024CD71E8FBF2A0010B588 /* PreferencesView.swift in Sources */,
 				C68850521EA9EBE1007CDF53 /* RepositoryRecord.swift in Sources */,
 				C64EB9491E928B7300DA54AE /* ArchiveListView.swift in Sources */,
+				C6C7BD481EAF4431007E6785 /* Scheduler.swift in Sources */,
 				C6609B691EA9E65F007A672D /* ArchiveListRecord.swift in Sources */,
 				C6024CE11E8FC6EC0010B588 /* AppPreferences.swift in Sources */,
 				C6609B671EA9E63F007A672D /* FileRecord.swift in Sources */,
+				C6C7BD4C1EAF5512007E6785 /* MainPreferences.swift in Sources */,
 				C6024CE51E8FCDBE0010B588 /* OnboardingView.swift in Sources */,
 				C6024CD21E8FBBFC0010B588 /* PreferencesController.swift in Sources */,
 				C68850501EA9EBC0007CDF53 /* InfoArchiveRecord.swift in Sources */,
 				C688504E1EA9EBAE007CDF53 /* InfoArchiveStatsRecord.swift in Sources */,
 				C68850541EA9EC01007CDF53 /* InfoRecord.swift in Sources */,
 				C6B365711E90A8AE00942635 /* SystemMenuController.swift in Sources */,
+				C67094401EB23CD600C56C9F /* ScheduleModalView.swift in Sources */,
 				C688507B1EAA4B10007CDF53 /* WindowWatcher.swift in Sources */,
 				C6024CCB1E8FBB8F0010B588 /* Extensions.swift in Sources */,
 				C64EB94B1E928BA900DA54AE /* ArchiveListController.swift in Sources */,
 				C632620F1E929B3E002CD9DB /* ArchiveFileView.swift in Sources */,
+				C688508B1EAAF34F007CDF53 /* RecurringDate.swift in Sources */,
 				C68850571EA9EC7A007CDF53 /* BufferedStringProcess.swift in Sources */,
 				C6B365691E8FF57500942635 /* BackupService.swift in Sources */,
 				C688504C1EA9EB88007CDF53 /* BorgMachineTask.swift in Sources */,
@@ -418,6 +441,7 @@
 				C63262111E929B77002CD9DB /* ArchiveFileController.swift in Sources */,
 				C6024CE71E8FD07C0010B588 /* OnboardingController.swift in Sources */,
 				C68850491EA9EB47007CDF53 /* ListRecord.swift in Sources */,
+				C6C7BD4A1EAF54E1007E6785 /* ScheduleRule.swift in Sources */,
 				C688502B1EA9EB3E007CDF53 /* ArchiveRecord.swift in Sources */,
 				C64EB9451E927D1400DA54AE /* InfoTask.swift in Sources */,
 				C64EB93F1E92635000DA54AE /* BackupTask.swift in Sources */,

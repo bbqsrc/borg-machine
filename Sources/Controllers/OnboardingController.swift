@@ -17,6 +17,7 @@ fileprivate class OnboardingViewModel {
     let repositoryPath = Variable<String>("")
     let passphrase = Variable<String>("")
     let targetPaths = Variable<[TargetPath]>([])
+    let scheduleRules = Variable<[ScheduleRule]>([])
     
     func updateTargetPath(_ path: String, size: Int64) {
         if let i = targetPaths.value.index(where: { $0.path == path }) {
@@ -65,7 +66,77 @@ fileprivate class OnboardingViewModel {
     }
 }
 
-class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSource, NSTableViewDelegate {
+class TargetTableDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
+    private unowned let viewModel: OnboardingViewModel
+    
+    fileprivate init(viewModel: OnboardingViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    public func numberOfRows(in tableView: NSTableView) -> Int {
+        return viewModel.targetPaths.value.count
+    }
+    
+    public func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let column = tableColumn else { return nil }
+        
+        let cell = tableView.make(withIdentifier: column.identifier, owner: self) as! NSTableCellView
+        let target = viewModel.targetPaths.value[row]
+        
+        switch column.identifier {
+        case "icon":
+            let icon = NSWorkspace.shared().icon(forFile: target.path)
+            cell.imageView?.image = icon
+        case "path":
+            cell.textField?.stringValue = target.path
+        case "size":
+            if let size = target.size {
+                cell.textField?.stringValue = ByteCountFormatter.string(
+                    fromByteCount: size,
+                    countStyle: ByteCountFormatter.CountStyle.file
+                )
+            } else {
+                cell.textField?.stringValue = "…"
+            }
+        default:
+            break
+        }
+        
+        return cell
+    }
+}
+
+class ScheduleTableDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
+    private unowned let viewModel: OnboardingViewModel
+    
+    fileprivate init(viewModel: OnboardingViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    public func numberOfRows(in tableView: NSTableView) -> Int {
+        return viewModel.scheduleRules.value.count
+    }
+    
+    public func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let column = tableColumn else { return nil }
+        
+        let cell = tableView.make(withIdentifier: column.identifier, owner: self) as! NSTableCellView
+        let sch = viewModel.scheduleRules.value[row]
+        
+        switch column.identifier {
+        case "time":
+            cell.textField?.stringValue = String(format: "%d:%02d", arguments: [sch.hour, sch.minute])
+        case "rule":
+            cell.textField?.stringValue = sch.rule.description
+        default:
+            break
+        }
+        
+        return cell
+    }
+}
+
+class OnboardingController: ViewController<OnboardingView>, NSPopoverDelegate {
     var bag = DisposeBag()
     fileprivate let viewModel = OnboardingViewModel()
     
@@ -83,7 +154,12 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
         return ctrl
     }
     
+    let targetDelegate: TargetTableDelegate
+    let scheduleDelegate: ScheduleTableDelegate
+    
     override init() {
+        targetDelegate = TargetTableDelegate(viewModel: viewModel)
+        scheduleDelegate = ScheduleTableDelegate(viewModel: viewModel)
         super.init()
     }
     
@@ -92,9 +168,10 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
     }
     
     func continueButtonTapped(_ sender: NSObject) {
-        AppPreferences.main.repositoryPath = viewModel.repositoryPath.value
-        AppPreferences.main.targetPaths = viewModel.targetPaths.value.map { $0.path }
-        AppPreferences.main.passphrase = viewModel.passphrase.value
+        AppPreferences.main.value.repositoryPath = viewModel.repositoryPath.value
+        AppPreferences.main.value.targetPaths = viewModel.targetPaths.value.map { $0.path }
+        AppPreferences.main.value.passphrase = viewModel.passphrase.value
+        AppPreferences.main.value.schedule = viewModel.scheduleRules.value
         
         AppPreferences.save()
         
@@ -162,19 +239,64 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
         viewModel.targetPaths.value = paths
     }
     
-    override func viewWillAppear() {
-        contentView.targetsTableView.dataSource = self
-        contentView.targetsTableView.delegate = self
+    var schedulePopup: NSPopover? = nil
+    
+    class ScheduleModalController: ViewController<ScheduleModalView> {}
+    
+    func scheduleAddButtonTapped(_ sender: NSView) {
+        if schedulePopup != nil { return }
         
-        if let passphrase = AppPreferences.main.passphrase {
+        let popover = NSPopover()
+        
+        let vc = ScheduleModalController()
+        popover.contentViewController = vc
+        popover.appearance = NSAppearance(named: NSAppearanceNameVibrantLight)
+        popover.animates = true
+        popover.behavior = .semitransient
+        popover.delegate = self
+        
+        schedulePopup = popover
+        
+        popover.show(relativeTo: contentView.scheduleAddButton.bounds, of: sender, preferredEdge: .maxY)
+        
+        vc.contentView.continueButton.rx.tap
+            .subscribe(onNext: {
+                let c = Calendar.current
+                    .dateComponents(Set([.hour, .minute]), from: vc.contentView.timeView.dateValue)
+                let d = vc.contentView.weekdaySegment.selectedSegments
+                    .flatMap({ Weekday(rawValue: $0 + 1) })
+                let r = RecurrenceRule(frequency: .daily, byDay: d)
+                
+                let rule = ScheduleRule(hour: UInt(c.hour!), minute: UInt(c.minute!), rule: r)!
+                self.viewModel.scheduleRules.value.append(rule)
+                
+                popover.performClose(vc.contentView.continueButton)
+            }) => bag
+        
+    }
+    
+    func popoverDidClose(_ notification: Notification) {
+        schedulePopup = nil
+    }
+    
+    override func viewWillAppear() {
+        contentView.targetsTableView.dataSource = targetDelegate
+        contentView.targetsTableView.delegate = targetDelegate
+        
+        contentView.scheduleTableView.dataSource = scheduleDelegate
+        contentView.scheduleTableView.delegate = scheduleDelegate
+        
+        if let passphrase = AppPreferences.main.value.passphrase {
             viewModel.passphrase.value = passphrase
         }
         
-        if let targetPaths = AppPreferences.main.targetPaths {
-            viewModel.targetPaths.value = targetPaths.map({ TargetPath(path: $0, size: nil) })
-        }
+        let targetPaths = AppPreferences.main.value.targetPaths
+        viewModel.targetPaths.value = targetPaths.map({ TargetPath(path: $0, size: nil) })
         
-        if let repositoryPath = AppPreferences.main.repositoryPath {
+        let schedule = AppPreferences.main.value.schedule
+        viewModel.scheduleRules.value = schedule
+        
+        if let repositoryPath = AppPreferences.main.value.repositoryPath {
             viewModel.repositoryPath.value = repositoryPath
         }
         
@@ -186,6 +308,8 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
             #selector(OnboardingController.targetAddButtonTapped(_:))
         contentView.targetRemoveButton.action =
             #selector(OnboardingController.targetRemoveButtonTapped(_:))
+        contentView.scheduleAddButton.action =
+            #selector(OnboardingController.scheduleAddButtonTapped(_:))
         
         viewModel.repositoryPath.asObservable()
             .bindTo(contentView.repositoryPathField.rx.text) => bag
@@ -193,6 +317,11 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
         viewModel.targetPaths.asObservable()
             .subscribe(onNext: { [weak self] _ in
                 self?.contentView.targetsTableView.reloadData()
+            }) => bag
+        
+        viewModel.scheduleRules.asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                self?.contentView.scheduleTableView.reloadData()
             }) => bag
         
         viewModel.passphrase.asObservable()
@@ -209,38 +338,6 @@ class OnboardingController: ViewController<OnboardingView>, NSTableViewDataSourc
     
     override func viewWillDisappear() {
         bag = DisposeBag()
-    }
-    
-    public func numberOfRows(in tableView: NSTableView) -> Int {
-        return viewModel.targetPaths.value.count
-    }
-    
-    public func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let column = tableColumn else { return nil }
-        
-        let cell = tableView.make(withIdentifier: column.identifier, owner: self) as! NSTableCellView
-        let target = viewModel.targetPaths.value[row]
-        
-        switch column.identifier {
-        case "icon":
-            let icon = NSWorkspace.shared().icon(forFile: target.path)
-            cell.imageView?.image = icon
-        case "path":
-            cell.textField?.stringValue = target.path
-        case "size":
-            if let size = target.size {
-                cell.textField?.stringValue = ByteCountFormatter.string(
-                    fromByteCount: size,
-                    countStyle: ByteCountFormatter.CountStyle.file
-                )
-            } else {
-                cell.textField?.stringValue = "…"
-            }
-        default:
-            break
-        }
-        
-        return cell
     }
 }
 

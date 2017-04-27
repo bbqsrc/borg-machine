@@ -44,14 +44,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.mainMenu = NSMenu.loadFromNib(named: "MainMenu")
         
         WindowWatcher.onWindowsChanged = { NSApp.setActivationPolicy($0.isEmpty ? .accessory : .regular) }
-        
-        // Wake up services
-        _ = BackupService.instance
-        
         systemMenuController = SystemMenuController()
         
-        if AppPreferences.main.repositoryPath == nil {
+        if AppPreferences.main.value.repositoryPath == nil {
             OnboardingController.inWindow().show(self)
+        }
+        
+        defer {
+            // Wake up services
+            _ = BackupService.instance
         }
     }
     
@@ -62,7 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension AppDelegate: NSUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: NSUserNotificationCenter, didDeliver notification: NSUserNotification) {
-        // print(notification)
+        print(notification)
     }
     
     private func showSummaryAlert(_ data: [String: Any]) {

@@ -14,7 +14,7 @@ class ListTask: BorgMachineTask {
     var state = TaskState.notStarted
     let task: BufferedStringSubprocess
     
-    init(archive archiveName: String, preferences: _AppPreferences = AppPreferences) {
+    init(archive archiveName: String, preferences: AppPreferencesImpl = AppPreferences) {
         let borg = BorgWrapper(preferences: preferences)!
         task = borg.list(archive: archiveName)
     }

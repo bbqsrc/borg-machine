@@ -7,34 +7,9 @@
 //
 
 import Cocoa
-
-struct MainPreferences {
-    fileprivate var json: [String: Any]
-    
-    var repositoryPath: String? {
-        get { return json["repositoryPath"] as? String }
-        set { json["repositoryPath"] = newValue }
-    }
-    
-    var repositoryType: String? {
-        get { return json["repositoryType"] as? String }
-        set { json["repositoryType"] = newValue }
-    }
-    
-    var targetPaths: [String]? {
-        get { return json["targetPaths"] as? [String] }
-        set { json["targetPaths"] = newValue }
-    }
-    
-    var passphrase: String? {
-        get { return json["passphrase"] as? String }
-        set { json["passphrase"] = newValue }
-    }
-    
-    fileprivate init(json: [String: Any]) {
-        self.json = json
-    }
-}
+import Mapper
+import Wrap
+import RxSwift
 
 fileprivate let prefsPath: URL =
     FileManager.default.urls(
@@ -45,6 +20,13 @@ fileprivate let prefsPath: URL =
 fileprivate let mainPreferencesURL: URL =
     prefsPath.appendingPathComponent("preferences.json")
 
+fileprivate let dateFormatter: DateFormatter = {
+    let it = DateFormatter()
+    it.locale = Locale(identifier: "en_US_POSIX")
+    it.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+    return it
+}()
+
 fileprivate func createPrefsPath() {
     try! FileManager.default.createDirectory(
         at: prefsPath,
@@ -53,23 +35,31 @@ fileprivate func createPrefsPath() {
     )
 }
 
-class _AppPreferences {
-    var main: MainPreferences
+fileprivate let wrapper = Wrapper(context: nil, dateFormatter: dateFormatter)
+
+class AppPreferencesImpl {
+    let main = Variable<MainPreferences>(MainPreferences())
     
-    init() {
+    fileprivate init() {
         createPrefsPath()
         
         let data = try? Data(contentsOf: mainPreferencesURL)
         
-        if let data = data, let json = JSONSerialization.jsonDict(with: data) {
-            main = MainPreferences(json: json)
-        } else {
-            main = MainPreferences(json: [:])
+        if let data = data,
+            let json = JSONSerialization.jsonDict(with: data),
+            let main = MainPreferences.from(json)
+        {
+            self.main.value = main
         }
     }
     
     func save() {
-        let data = try? JSONSerialization.data(withJSONObject: main.json, options: [])
+        guard let json = try? wrapper.wrap(object: main.value) else {
+            print("Save didn't succeed, tears, everywhere.")
+            return
+        }
+        
+        let data = try? JSONSerialization.data(withJSONObject: json, options: [])
         
         if let data = data {
             try? data.write(to: mainPreferencesURL)
@@ -77,4 +67,4 @@ class _AppPreferences {
     }
 }
 
-let AppPreferences = _AppPreferences()
+let AppPreferences = AppPreferencesImpl()

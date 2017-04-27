@@ -15,5 +15,8 @@ class OnboardingView: NSView, Nibbable {
     @IBOutlet weak var targetsTableView: NSTableView!
     @IBOutlet weak var targetAddButton: NSButton!
     @IBOutlet weak var targetRemoveButton: NSButton!
+    @IBOutlet weak var scheduleTableView: NSTableView!
+    @IBOutlet weak var scheduleAddButton: NSButton!
+    @IBOutlet weak var scheduleRemoveButton: NSButton!
     @IBOutlet weak var passphraseTextField: NSSecureTextField!
 }

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C6B969C11E8D1D1D00897A60"
-               BuildableName = "BorgMachine.app"
+               BuildableName = "Borg Machine.app"
                BlueprintName = "BorgMachine"
                ReferencedContainer = "container:BorgMachine.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C6B969C11E8D1D1D00897A60"
-            BuildableName = "BorgMachine.app"
+            BuildableName = "Borg Machine.app"
             BlueprintName = "BorgMachine"
             ReferencedContainer = "container:BorgMachine.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C6B969C11E8D1D1D00897A60"
-            BuildableName = "BorgMachine.app"
+            BuildableName = "Borg Machine.app"
             BlueprintName = "BorgMachine"
             ReferencedContainer = "container:BorgMachine.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C6B969C11E8D1D1D00897A60"
-            BuildableName = "BorgMachine.app"
+            BuildableName = "Borg Machine.app"
             BlueprintName = "BorgMachine"
             ReferencedContainer = "container:BorgMachine.xcodeproj">
          </BuildableReference>
