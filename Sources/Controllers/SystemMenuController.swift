@@ -59,6 +59,7 @@ class SystemMenuController {
         backupNowItem.isEnabled = true
         backupNowItem.title = "Back Up Now"
         
+        
         switch state {
         case let .backingUp(percent, info):
             backupNowItem.title = "Cancel This Backup"
@@ -68,18 +69,33 @@ class SystemMenuController {
             if let info = info {
                 secondaryInfoItem.title = info
             }
+            
+            let image = NSImage(named: "backupActiveIcon")!
+            statusItem.image = image
+            
         case .noConfiguration:
             primaryInfoItem.title = "Borg Machine is not configured."
             secondaryInfoItem.isHidden = true
             backupNowItem.isEnabled = false
+            
+            let image = NSImage(named: "backupIcon")!
+            statusItem.image = image
+            
         case let .idleWithHistory(repository, time):
             primaryInfoItem.title = "Latest Backup to \(repository)"
             secondaryInfoItem.title = time
             secondaryInfoItem.isHidden = false
+            
+            let image = NSImage(named: "backupIcon")!
+            statusItem.image = image
+            
         case .cancellingBackup:
             primaryInfoItem.title = "Cancelling Backup…"
             secondaryInfoItem.isHidden = true
             backupNowItem.isEnabled = false
+            
+            let image = NSImage(named: "backupActiveIcon")!
+            statusItem.image = image
         }
     }
     
